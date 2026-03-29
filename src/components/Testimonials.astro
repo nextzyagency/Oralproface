@@ -1,114 +1,157 @@
 ---
-
+const b = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<section class="py-20 bg-white" id="testimonios">
+<section class="py-24 bg-medical-gray overflow-hidden" id="testimonios">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <span class="text-primary text-sm font-bold tracking-wider uppercase"
-        >Vidas Transformadas</span
+        >Historias de Transformación</span
       >
       <h2
-        class="font-display text-3xl md:text-4xl font-bold text-medical-blue mt-2"
+        class="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-medical-blue mt-2"
       >
-        Pacientes que Recuperaron su Sonrisa
+        Vidas que Cambiaron por Completo
       </h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-      <div
-        class="bg-medical-gray p-8 relative shadow-sm border border-gray-100"
-      >
-        <span
-          class="material-icons text-6xl text-primary/10 absolute top-4 right-4"
-          >format_quote</span
+
+    <!-- Testimonials Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <!-- Card 1 -->
+      <div class="flex flex-col h-[80vh] group">
+        <div
+          class="relative flex-1 overflow-hidden shadow-2xl border-4 border-white bg-white"
         >
-        <div class="flex items-center gap-4 mb-6 relative z-10">
+          <!-- After (Default) -->
           <img
-            alt="Paciente mujer sonriendo"
-            class="w-16 h-16 object-cover border-2 border-primary"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW09Eb9m6hvFx6x9i0pW040Gp9qBgix_r73RXlB_DfM4_GJiMClHOEJuOVhVjU5dV41DkepsV58wPLlT4Uujg_712KQoBOLQ-yWeyOT0M6B6dP_c3vuUyWPWTB73f_-TeOOZj3vkqwWSuAW9XFFnHG7pxh4IIOMhUEjnwaI0GuFpF19UJU6r3OuDNfNTSxjqVMcL2fOBjG-pxEcdBmq0rfOBBlMM73BZQ_XzuCJsU4Vn-8r0ej7rNQ12Dp5QcQPnAOzKMXW0H5jZ8r"
+            src={`${b}/imagenes/testimonials/testimonial-1-despues.jpg`}
+            alt="Paciente 1 - Resultados Finales"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div>
-            <h4 class="font-bold text-medical-blue">
+
+          <!-- Before (Reveal on hover) -->
+          <div
+            class="absolute inset-0 w-full h-full overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"
+          >
+            <img
+              src={`${b}/imagenes/testimonials/testimonial-1-antes.jpg`}
+              alt="Paciente 1 - Estado Inicial"
+              class="absolute inset-0 w-full h-full object-cover grayscale-[0.5]"
+            />
+            <div class="absolute inset-0 bg-medical-blue/20"></div>
+          </div>
+
+          <!-- Label -->
+          <div class="absolute bottom-6 right-6 z-20">
+            <span
+              class="inline-flex items-center gap-2 px-6 py-2 bg-lime text-medical-blue font-bold uppercase tracking-widest text-xs shadow-lg group-hover:bg-primary group-hover:text-white transition-colors duration-300"
+            >
+              <span class="material-icons text-sm">visibility</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-8 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3
+              class="text-2xl font-bold text-medical-blue uppercase tracking-tight"
+            >
               María González
-            </h4>
-            <p class="text-sm text-neutral-gray">Implantes Basales</p>
+            </h3>
+            <div class="flex text-lime">
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+            </div>
           </div>
-        </div>
-        <p class="text-primary italic relative z-10">
-          "Llevaba años usando dentadura postiza y sufriendo para comer. El
-          equipo de Oral ProFace me devolvió la confianza en solo 3 días. Ahora
-          puedo comer manzanas sin miedo."
-        </p>
-        <div class="flex text-lime mt-4">
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
+          <p class="text-neutral-gray text-lg leading-relaxed italic">
+            "Llevaba años usando dentadura postiza y sufriendo para comer. El
+            equipo de Oral ProFace me devolvió la confianza en solo 3 días."
+          </p>
+          <p class="text-primary font-bold text-sm uppercase tracking-widest">
+            Tratamiento: Implantología Basal
+          </p>
         </div>
       </div>
-      <div
-        class="bg-medical-gray p-8 relative shadow-sm border border-gray-100"
-      >
-        <span
-          class="material-icons text-6xl text-primary/10 absolute top-4 right-4"
-          >format_quote</span
+
+      <!-- Card 2 -->
+      <div class="flex flex-col h-[80vh] group">
+        <div
+          class="relative flex-1 overflow-hidden shadow-2xl border-4 border-white bg-white"
         >
-        <div class="flex items-center gap-4 mb-6 relative z-10">
+          <!-- After (Default) -->
           <img
-            alt="Paciente hombre sonriendo"
-            class="w-16 h-16 object-cover border-2 border-primary"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuABORXlncyO2r1dOfZQhw6WjbII_DEUSxlfKbt78MEnYjsC4IMATHpKtTI3KkobCfpd5vhKMX-xMYWK81VtHMjTseNCFuHd2dmgCozkdbFpe-sEJmyu9EicCy5VQwcxJZUDNRMH7IXquVcSsLfwNz0foDccBmr7m0Od1CR-JiSvV8lNnBXehenOcjCmaPQ5RT3lLetg_-zjyqM5O9_DtN-gjxUiPXXQ2WjDCqxfDLb9DUIw67iQaVCF-fd2N4i8xfaOf_FOttstXYyF"
+            src={`${b}/imagenes/testimonials/testimonial-2-despues.jpg`}
+            alt="Paciente 2 - Resultados Finales"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div>
-            <h4 class="font-bold text-medical-blue">
-              Roberto Díaz
-            </h4>
-            <p class="text-sm text-neutral-gray">Diseño de Sonrisa</p>
+
+          <!-- Before (Reveal on hover) -->
+          <div
+            class="absolute inset-0 w-full h-full overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"
+          >
+            <img
+              src={`${b}/imagenes/testimonials/testimonial-2-antes.jpg`}
+              alt="Paciente 2 - Estado Inicial"
+              class="absolute inset-0 w-full h-full object-cover grayscale-[0.5]"
+            />
+            <div class="absolute inset-0 bg-medical-blue/20"></div>
+          </div>
+
+          <!-- Label -->
+          <div class="absolute bottom-6 right-6 z-20">
+            <span
+              class="inline-flex items-center gap-2 px-6 py-2 bg-lime text-medical-blue font-bold uppercase tracking-widest text-xs shadow-lg group-hover:bg-primary group-hover:text-white transition-colors duration-300"
+            >
+              <span class="material-icons text-sm">visibility</span>
+            </span>
           </div>
         </div>
-        <p class="text-primary italic relative z-10">
-          "La atención fue increíble desde el primer momento. Me explicaron todo
-          el proceso digital y el resultado fue exactamente como me lo mostraron
-          en la pantalla. Totalmente recomendado."
-        </p>
-        <div class="flex text-lime mt-4">
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
-          <span class="material-icons text-sm">star</span>
+
+        <div class="mt-8 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3
+              class="text-2xl font-bold text-medical-blue uppercase tracking-tight"
+            >
+              Roberto Díaz
+            </h3>
+            <div class="flex text-lime">
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+              <span class="material-icons text-sm">star</span>
+            </div>
+          </div>
+          <p class="text-neutral-gray text-lg leading-relaxed italic">
+            "La atención fue increíble desde el primer momento. El resultado fue
+            exactamente como me lo mostraron en la planificación digital."
+          </p>
+          <p class="text-primary font-bold text-sm uppercase tracking-widest">
+            Tratamiento: Rehabilitación Estratégica
+          </p>
         </div>
       </div>
     </div>
-    <div class="flex justify-between items-center max-w-4xl mx-auto mt-8">
-      <button
-        class="p-2 hover:bg-slate-100 text-slate-400 transition-colors"
-      >
-        <span class="material-icons">chevron_left</span>
-      </button>
-      <div class="flex gap-2">
-        <div class="w-2.5 h-2.5 bg-primary"></div>
-        <div class="w-2.5 h-2.5 bg-slate-300">
-        </div>
-        <div class="w-2.5 h-2.5 bg-slate-300">
-        </div>
-      </div>
-      <button
-        class="p-2 hover:bg-slate-100 text-slate-400 transition-colors"
-      >
-        <span class="material-icons">chevron_right</span>
-      </button>
-    </div>
-    <div class="text-center mt-12">
+
+    <!-- Final CTA -->
+    <div class="text-center mt-20">
       <a
-        class="bg-lime hover:bg-primary text-medical-blue hover:text-white px-8 py-3 font-medium shadow-lg hover:shadow-primary/40 transition-all inline-flex items-center gap-2"
+        class="inline-flex items-center gap-4 bg-medical-blue text-white px-10 py-5 font-bold uppercase tracking-widest text-sm shadow-2xl hover:bg-primary transition-all duration-300 border-2 border-transparent hover:border-lime"
         href="#contacto"
       >
-        Ver mas historias reales
-        <span class="material-icons text-sm">play_circle_filled</span>
+        <span>Transforma tu sonrisa hoy</span>
+        <span class="material-icons">arrow_forward</span>
       </a>
     </div>
   </div>
 </section>
+
+<style>
+  /* Optional: Smooth transition for scaling if not handled by Tailwind */
+  .group:hover img {
+    transform: scale(1.05);
+  }
+</style>
