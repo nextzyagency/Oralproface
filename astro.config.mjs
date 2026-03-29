@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nextzyagency.github.io',
-  base: '/oralproface',
+  base: '/Oralproface',
   vite: {
     plugins: [tailwindcss()]
   }
