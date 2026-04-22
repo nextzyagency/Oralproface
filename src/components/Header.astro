@@ -3,50 +3,91 @@
 ---
 
 <header
-  class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100 dark:border-slate-800"
+  class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-20">
+    <div class="flex justify-between items-center h-16 sm:h-20">
+      <!-- Logo -->
       <div class="flex-shrink-0 flex items-center gap-2">
-        <span
-          class="font-display font-bold text-2xl text-medical-blue tracking-tight"
-          >Oral<span class="text-primary">ProFace</span></span
-        >
+        <span class="font-display font-bold text-xl sm:text-2xl text-medical-blue tracking-tight">
+          Oral<span class="text-primary">ProFace</span>
+        </span>
       </div>
+
+      <!-- Desktop nav -->
       <nav class="hidden md:flex space-x-8">
-        <a
-          class="text-slate-700 hover:text-primary font-medium transition-colors"
-          href="#">Inicio</a
-        >
-        <a
-          class="text-slate-700 hover:text-primary font-medium transition-colors"
-          href="#nosotros">Nosotros</a
-        >
-        <a
-          class="text-slate-700 hover:text-primary font-medium transition-colors"
-          href="#servicios">Servicios</a
-        >
-        <a
-          class="text-slate-700 hover:text-primary font-medium transition-colors"
-          href="#testimonios">Testimonios</a
-        >
+        <a class="text-slate-700 hover:text-primary font-medium transition-colors text-sm" href="#inicio" title="Inicio">Inicio</a>
+        <a class="text-slate-700 hover:text-primary font-medium transition-colors text-sm" href="#nosotros" title="Nosotros">Nosotros</a>
+        <a class="text-slate-700 hover:text-primary font-medium transition-colors text-sm" href="#servicios" title="Servicios">Servicios</a>
+        <a class="text-slate-700 hover:text-primary font-medium transition-colors text-sm" href="#testimonios" title="Testimonios">Testimonios</a>
       </nav>
+
+      <!-- Desktop CTA -->
       <div class="hidden md:flex items-center">
         <a
-          class="bg-primary hover:bg-lime text-white hover:text-medical-blue px-6 py-2.5 font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center gap-2"
+          class="bg-primary hover:bg-lime text-white hover:text-medical-blue px-5 py-2.5 font-medium transition-all shadow-md hover:shadow-lg flex items-center gap-2 text-sm"
           href="#contacto"
+          title="Agendar cita en Oral ProFace"
         >
           <span>Agendar cita</span>
-          <span class="material-icons-outlined text-sm">calendar_today</span>
+          <span class="material-icons-outlined text-base">calendar_today</span>
         </a>
       </div>
-      <div class="md:hidden flex items-center">
-        <button
-          class="text-slate-600 dark:text-slate-200 hover:text-primary p-2"
-        >
-          <span class="material-icons text-3xl">menu</span>
-        </button>
-      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden flex items-center justify-center w-10 h-10 text-slate-600 hover:text-primary transition-colors"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+      >
+        <span class="material-icons text-2xl" id="menu-icon">menu</span>
+      </button>
     </div>
   </div>
+
+  <!-- Mobile menu panel -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-white border-t border-slate-100 shadow-lg"
+  >
+    <nav class="flex flex-col px-4 py-4 space-y-1">
+      <a class="px-4 py-3 text-slate-700 hover:text-primary hover:bg-medical-gray font-medium rounded-lg transition-colors text-sm" href="#inicio" title="Inicio">Inicio</a>
+      <a class="px-4 py-3 text-slate-700 hover:text-primary hover:bg-medical-gray font-medium rounded-lg transition-colors text-sm" href="#nosotros" title="Nosotros">Nosotros</a>
+      <a class="px-4 py-3 text-slate-700 hover:text-primary hover:bg-medical-gray font-medium rounded-lg transition-colors text-sm" href="#servicios" title="Servicios">Servicios</a>
+      <a class="px-4 py-3 text-slate-700 hover:text-primary hover:bg-medical-gray font-medium rounded-lg transition-colors text-sm" href="#testimonios" title="Testimonios">Testimonios</a>
+      <div class="pt-2">
+        <a
+          class="flex items-center justify-center gap-2 w-full bg-primary hover:bg-lime text-white hover:text-medical-blue font-bold py-3 rounded-lg transition-all text-sm"
+          href="#contacto"
+          title="Agendar cita en Oral ProFace"
+        >
+          <span class="material-icons-outlined text-base">calendar_today</span>
+          Agendar cita
+        </a>
+      </div>
+    </nav>
+  </div>
 </header>
+
+<script is:inline>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('menu-icon');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    icon.textContent = isOpen ? 'menu' : 'close';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  // Close menu on nav link click
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      icon.textContent = 'menu';
+      btn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

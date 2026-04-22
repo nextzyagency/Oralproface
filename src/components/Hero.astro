@@ -3,7 +3,7 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
 ---
 
 <section
-  class="relative min-h-screen flex items-center bg-medical-gray overflow-hidden"
+  class="relative flex items-center bg-medical-gray overflow-hidden"
   id="inicio"
 >
   <!-- Subtle background grid decoration -->
@@ -12,16 +12,16 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
     style="background-image: linear-gradient(#0F4C81 1px, transparent 1px), linear-gradient(to right, #0F4C81 1px, transparent 1px); background-size: 48px 48px;"
   ></div>
 
-  <div class="container mx-auto px-6 lg:px-12 xl:px-16 relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center min-h-screen lg:min-h-0 py-24 lg:py-0">
+  <div class="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center pt-28 pb-12 lg:pt-0 lg:pb-0 lg:min-h-screen">
 
-      <!-- ───── LEFT: Copy ───── -->
-      <div class="flex flex-col justify-center space-y-8 order-2 lg:order-1">
+      <!-- ───── LEFT: Copy — texto primero en móvil ───── -->
+      <div class="flex flex-col justify-center space-y-5 order-1 lg:order-1">
 
         <!-- Badge -->
         <div class="flex items-center gap-2 w-fit">
           <span
-            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
           >
             <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
             Precisión Digital
@@ -30,7 +30,7 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
 
         <!-- H1 -->
         <h1
-          class="font-display text-5xl md:text-6xl xl:text-7xl font-bold text-slate-900 leading-[1.08] tracking-tight"
+          class="font-display text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold text-slate-900 leading-[1.08] tracking-tight"
         >
           Recupera la<br />
           <span class="text-primary italic">Confianza</span> de<br />
@@ -38,19 +38,19 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-lg text-neutral-gray leading-relaxed max-w-lg">
+        <p class="text-base lg:text-lg text-neutral-gray leading-relaxed max-w-lg">
           Implantología dental avanzada con enfoque humano. Restauramos
           más que dientes; restauramos tu capacidad de vivir sin límites.
         </p>
 
         <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row items-start gap-4 pt-2">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <a
-            href="https://wa.me/573000000000?text=Hola,%20deseo%20agendar%20una%20valoración%20de%20implantología."
+            href="https://wa.me/573103114580?text=Hola,%20deseo%20agendar%20una%20valoración%20de%20implantología."
             target="_blank"
             rel="noopener noreferrer"
             title="Agendar valoración de implantología en Oral ProFace"
-            class="group inline-flex items-center gap-3 px-8 py-4 bg-lime text-slate-900 font-bold text-sm tracking-wide rounded-full hover:bg-[#bae208] transition-all duration-300 shadow-lg shadow-lime/30 hover:shadow-lime/50 hover:scale-[1.02]"
+            class="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-lime text-slate-900 font-bold text-sm tracking-wide rounded-full hover:bg-[#bae208] transition-all duration-300 shadow-lg shadow-lime/30 hover:shadow-lime/50"
           >
             <span class="material-icons text-base">calendar_month</span>
             Agendar Valoración
@@ -60,22 +60,22 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
           <a
             href="#testimonios"
             title="Ver resultados de tratamientos de implantología"
-            class="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-800 font-semibold text-sm tracking-wide rounded-full border border-slate-200 hover:border-primary hover:text-primary transition-all duration-300 hover:scale-[1.02]"
+            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-slate-800 font-semibold text-sm tracking-wide rounded-full border border-slate-200 hover:border-primary hover:text-primary transition-all duration-300"
           >
             Ver Resultados
           </a>
         </div>
 
         <!-- Social proof strip -->
-        <div class="flex items-center gap-6 pt-4 border-t border-slate-200">
-          <div class="flex -space-x-2">
+        <div class="flex items-center gap-5 pt-2 border-t border-slate-200">
+          <div class="flex -space-x-2 shrink-0">
             <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold border-2 border-white">M</div>
             <div class="w-8 h-8 rounded-full bg-medical-blue flex items-center justify-center text-white text-xs font-bold border-2 border-white">R</div>
             <div class="w-8 h-8 rounded-full bg-lime flex items-center justify-center text-slate-900 text-xs font-bold border-2 border-white">A</div>
             <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-white text-xs font-bold border-2 border-white">+</div>
           </div>
           <div>
-            <div class="flex items-center gap-1 text-lime">
+            <div class="flex items-center gap-0.5 text-lime">
               <span class="material-icons text-sm">star</span>
               <span class="material-icons text-sm">star</span>
               <span class="material-icons text-sm">star</span>
@@ -89,23 +89,23 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
         </div>
       </div>
 
-      <!-- ───── RIGHT: Image ───── -->
-      <div class="flex justify-center lg:justify-end items-center order-1 lg:order-2">
-        <div class="relative w-full max-w-md xl:max-w-lg">
+      <!-- ───── RIGHT: Image — segundo en móvil ───── -->
+      <div class="flex justify-center lg:justify-end items-center order-2 lg:order-2">
+        <div class="relative w-full max-w-sm sm:max-w-md lg:max-w-full">
 
           <!-- Main image card -->
           <div
-            class="relative overflow-hidden rounded-[2rem] shadow-2xl shadow-slate-300/60 aspect-[4/5] w-full"
+            class="relative overflow-hidden rounded-2xl lg:rounded-[2rem] shadow-2xl shadow-slate-300/60 aspect-[4/3] sm:aspect-[3/4] lg:aspect-[3/4] w-full"
           >
             <img
               src={heroImage}
               alt="Paciente con sonrisa perfecta tras implantología estratégica en Oral ProFace"
               title="Resultados reales de implantología dental en Oral ProFace"
-              class="w-full h-full object-cover object-center scale-105 hover:scale-100 transition-transform duration-[1200ms] ease-out"
+              class="w-full h-full object-cover object-center"
               loading="eager"
               onerror="this.onerror=null; this.src='https://placehold.co/600x750/0F4C81/ffffff?text=Oral+ProFace';"
             />
-            <!-- Colour overlay top -->
+            <!-- Colour overlay -->
             <div
               class="absolute inset-0 bg-gradient-to-b from-medical-blue/10 via-transparent to-medical-blue/40 pointer-events-none"
             ></div>
@@ -113,10 +113,10 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
 
           <!-- Floating stat card -->
           <div
-            class="absolute -bottom-5 -left-5 lg:-left-10 bg-white/95 backdrop-blur-md rounded-2xl px-5 py-4 shadow-xl shadow-slate-200/80 border border-slate-100 flex items-center gap-3 max-w-[230px]"
+            class="absolute -bottom-4 left-4 sm:-bottom-5 sm:-left-4 lg:-left-8 bg-white/95 backdrop-blur-md rounded-2xl px-4 py-3 shadow-xl shadow-slate-200/80 border border-slate-100 flex items-center gap-3"
           >
-            <div class="shrink-0 w-10 h-10 rounded-full bg-lime/20 flex items-center justify-center">
-              <span class="material-icons text-lime text-base">verified_user</span>
+            <div class="shrink-0 w-9 h-9 rounded-full bg-lime/20 flex items-center justify-center">
+              <span class="material-icons text-lime text-sm">verified_user</span>
             </div>
             <div>
               <p class="text-slate-900 font-bold text-sm leading-tight">+30 Casos Exitosos</p>
@@ -124,10 +124,8 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
             </div>
           </div>
 
-          <!-- Floating accent dot decoration -->
-          <div class="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-lime/20 blur-2xl pointer-events-none"></div>
-          <div class="absolute top-1/3 -right-8 w-4 h-4 rounded-full bg-primary/40 pointer-events-none"></div>
-          <div class="absolute top-1/3 -right-14 w-2.5 h-2.5 rounded-full bg-lime/60 pointer-events-none"></div>
+          <!-- Accent decorations -->
+          <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-lime/20 blur-2xl pointer-events-none"></div>
         </div>
       </div>
 
