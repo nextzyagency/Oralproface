@@ -3,7 +3,7 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
 ---
 
 <section
-  class="relative flex items-center bg-medical-gray overflow-hidden"
+  class="relative flex items-center bg-medical-gray overflow-x-hidden"
   id="inicio"
 >
   <!-- Subtle background grid decoration -->
@@ -38,7 +38,7 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-base lg:text-lg text-neutral-gray leading-relaxed max-w-lg">
+        <p class="text-base lg:text-lg text-neutral-gray leading-relaxed">
           Implantología dental avanzada con enfoque humano. Restauramos
           más que dientes; restauramos tu capacidad de vivir sin límites.
         </p>
@@ -95,7 +95,7 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
 
           <!-- Main image card -->
           <div
-            class="relative overflow-hidden rounded-2xl lg:rounded-[2rem] shadow-2xl shadow-slate-300/60 aspect-[4/3] sm:aspect-[3/4] lg:aspect-[3/4] w-full"
+            class="relative overflow-hidden rounded-2xl lg:rounded-[2rem] shadow-2xl shadow-slate-300/60 aspect-[4/3] sm:aspect-[3/4] lg:aspect-[16/10] w-full"
           >
             <img
               src={heroImage}
@@ -124,8 +124,8 @@ const heroImage = "/imagenes/hero/imagen2.jpg";
             </div>
           </div>
 
-          <!-- Accent decorations -->
-          <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-lime/20 blur-2xl pointer-events-none"></div>
+          <!-- Accent decoration -->
+          <div class="absolute -top-4 right-4 w-16 h-16 rounded-full bg-lime/20 blur-2xl pointer-events-none"></div>
         </div>
       </div>
 
