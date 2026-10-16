@@ -1,156 +1,167 @@
 ---
+import SideDecor from "./SideDecor.astro";
+
+const cases = [
+  {
+    name: "María González",
+    quote: "Llevaba años usando dentadura postiza y sufriendo para comer. El equipo de Oral ProFace me devolvió la confianza en solo 3 días.",
+    treatment: "Implantología basal",
+    before: "/imagenes/testimonials/testimonial-1-antes.jpg",
+    after: "/imagenes/testimonials/testimonial-1-despues.jpg",
+  },
+  {
+    name: "Roberto Díaz",
+    quote: "La atención fue increíble desde el primer momento. El resultado fue exactamente como me lo mostraron en la planificación digital.",
+    treatment: "Rehabilitación estratégica",
+    before: "/imagenes/testimonials/testimonial-2-antes.jpg",
+    after: "/imagenes/testimonials/testimonial-2-despues.jpg",
+  },
+];
 ---
 
-<section class="py-24 bg-medical-gray overflow-hidden" id="testimonios">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <span class="text-primary text-sm font-bold tracking-wider uppercase"
-        >Historias de Transformación</span
-      >
-      <h2
-        class="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-medical-blue mt-2"
-      >
-        Vidas que Cambiaron por Completo
+<section id="testimonios" class="relative py-24 sm:py-32 bg-white overflow-clip">
+  <SideDecor
+    items={[
+      { name: "crown", side: "left", top: "10%", size: 80, rotate: -10, speed: 0.35, offset: 18, mobile: true },
+      { name: "shield", side: "right", top: "48%", size: 66, rotate: 8, speed: 0.5, offset: 26 },
+      { name: "sparkle", side: "left", top: "80%", size: 40, speed: 0.6, delay: 1.5, offset: 60 },
+    ]}
+  />
+
+  <div class="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="text-center max-w-3xl mx-auto">
+      <span data-reveal class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+        <span class="material-symbols-rounded text-[16px]">favorite</span> Historias de transformación
+      </span>
+      <h2 data-reveal class="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight">
+        Vidas que <span class="text-gradient">cambiaron por completo</span>
       </h2>
+      <p data-reveal class="mt-4 text-lg text-slate-600 flex items-center justify-center gap-2">
+        <span class="material-symbols-rounded text-primary">swipe</span> Desliza sobre la foto para ver el antes y el después
+      </p>
     </div>
 
-    <!-- Testimonials Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-      <!-- Card 1 -->
-      <div class="flex flex-col group">
-        <div
-          class="relative overflow-hidden shadow-2xl border-4 border-white bg-white aspect-[4/3] sm:aspect-[3/4]"
-        >
-          <!-- After (Default) -->
-          <img
-            src="/imagenes/testimonials/testimonial-1-despues.jpg"
-            alt="Paciente 1 - Resultados Finales"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-
-          <!-- Before (Reveal on hover) -->
-          <div
-            class="absolute inset-0 w-full h-full overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"
-          >
-            <img
-              src="/imagenes/testimonials/testimonial-1-antes.jpg"
-              alt="Paciente 1 - Estado Inicial"
-              class="absolute inset-0 w-full h-full object-cover grayscale-[0.5]"
-            />
-            <div class="absolute inset-0 bg-medical-blue/20"></div>
-          </div>
-
-          <!-- Label -->
-          <div class="absolute bottom-6 right-6 z-20">
-            <span
-              class="inline-flex items-center gap-2 px-6 py-2 bg-lime text-medical-blue font-bold uppercase tracking-widest text-xs shadow-lg group-hover:bg-primary group-hover:text-white transition-colors duration-300"
+    <div class="mt-14 grid lg:grid-cols-2 gap-8 lg:gap-10">
+      {
+        cases.map((c, i) => (
+          <article data-reveal data-reveal-delay={i * 0.1} class="group rounded-[2rem] bg-medical-gray p-3 sm:p-4">
+            <div
+              class="ba relative aspect-[4/3] overflow-hidden rounded-[1.5rem] select-none touch-pan-y cursor-ew-resize"
+              style="--pos: 50%;"
+              role="slider"
+              tabindex="0"
+              aria-label={`Comparar antes y después de ${c.name}`}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="50"
             >
-              <span class="material-icons text-sm">visibility</span>
-            </span>
-          </div>
-        </div>
-
-        <div class="mt-8 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3
-              class="text-2xl font-bold text-medical-blue uppercase tracking-tight"
-            >
-              María González
-            </h3>
-            <div class="flex text-lime">
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
+              <img src={c.after} alt={`${c.name} - después del tratamiento`} class="absolute inset-0 w-full h-full object-cover" loading="lazy" draggable="false" />
+              <div class="ba-before absolute inset-0">
+                <img src={c.before} alt={`${c.name} - antes del tratamiento`} class="absolute inset-0 w-full h-full object-cover" loading="lazy" draggable="false" />
+              </div>
+              <span class="absolute left-4 top-4 rounded-full bg-ink/70 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">Antes</span>
+              <span class="absolute right-4 top-4 rounded-full bg-lime px-3 py-1 text-xs font-bold uppercase tracking-wider text-ink">Después</span>
+              <div class="ba-handle absolute inset-y-0 w-0.5 bg-white shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+                <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 grid place-items-center w-12 h-12 rounded-full bg-white text-medical-blue shadow-xl">
+                  <span class="material-symbols-rounded">code</span>
+                </span>
+              </div>
             </div>
-          </div>
-          <p class="text-neutral-gray text-lg leading-relaxed italic">
-            "Llevaba años usando dentadura postiza y sufriendo para comer. El
-            equipo de Oral ProFace me devolvió la confianza en solo 3 días."
-          </p>
-          <p class="text-primary font-bold text-sm uppercase tracking-widest">
-            Tratamiento: Implantología Basal
-          </p>
-        </div>
-      </div>
 
-      <!-- Card 2 -->
-      <div class="flex flex-col group">
-        <div
-          class="relative overflow-hidden shadow-2xl border-4 border-white bg-white aspect-[4/3] sm:aspect-[3/4]"
-        >
-          <!-- After (Default) -->
-          <img
-            src="/imagenes/testimonials/testimonial-2-despues.jpg"
-            alt="Paciente 2 - Resultados Finales"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-
-          <!-- Before (Reveal on hover) -->
-          <div
-            class="absolute inset-0 w-full h-full overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"
-          >
-            <img
-              src="/imagenes/testimonials/testimonial-2-antes.jpg"
-              alt="Paciente 2 - Estado Inicial"
-              class="absolute inset-0 w-full h-full object-cover grayscale-[0.5]"
-            />
-            <div class="absolute inset-0 bg-medical-blue/20"></div>
-          </div>
-
-          <!-- Label -->
-          <div class="absolute bottom-6 right-6 z-20">
-            <span
-              class="inline-flex items-center gap-2 px-6 py-2 bg-lime text-medical-blue font-bold uppercase tracking-widest text-xs shadow-lg group-hover:bg-primary group-hover:text-white transition-colors duration-300"
-            >
-              <span class="material-icons text-sm">visibility</span>
-            </span>
-          </div>
-        </div>
-
-        <div class="mt-8 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3
-              class="text-2xl font-bold text-medical-blue uppercase tracking-tight"
-            >
-              Roberto Díaz
-            </h3>
-            <div class="flex text-lime">
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
-              <span class="material-icons text-sm">star</span>
+            <div class="p-4 sm:p-6">
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <span class="grid place-items-center w-11 h-11 rounded-full bg-gradient-to-br from-primary to-medical-blue font-bold text-white">
+                    {c.name.split(" ").map((p) => p[0]).join("")}
+                  </span>
+                  <div>
+                    <h3 class="font-display font-bold text-ink">{c.name}</h3>
+                    <p class="text-xs font-semibold text-primary">{c.treatment}</p>
+                  </div>
+                </div>
+                <div class="flex text-amber-400">
+                  {Array.from({ length: 5 }).map(() => <span class="material-symbols-rounded icon-fill text-[18px]">star</span>)}
+                </div>
+              </div>
+              <blockquote class="mt-4 text-slate-600 leading-relaxed">
+                <span class="font-display text-4xl leading-none text-primary/30 align-[-0.4em] mr-1">“</span>{c.quote}
+              </blockquote>
             </div>
-          </div>
-          <p class="text-neutral-gray text-lg leading-relaxed italic">
-            "La atención fue increíble desde el primer momento. El resultado fue
-            exactamente como me lo mostraron en la planificación digital."
-          </p>
-          <p class="text-primary font-bold text-sm uppercase tracking-widest">
-            Tratamiento: Rehabilitación Estratégica
-          </p>
-        </div>
-      </div>
+          </article>
+        ))
+      }
     </div>
 
-    <!-- Final CTA -->
-    <div class="text-center mt-20">
+    <div class="mt-14 text-center" data-reveal>
       <a
-        class="inline-flex items-center gap-4 bg-medical-blue text-white px-10 py-5 font-bold uppercase tracking-widest text-sm shadow-2xl hover:bg-primary transition-all duration-300 border-2 border-transparent hover:border-lime"
-        href="#contacto"
+        href="#cita"
+        class="group inline-flex items-center gap-3 rounded-full bg-medical-blue px-8 py-4 font-bold text-white shadow-xl shadow-medical-blue/25 hover:bg-primary transition-colors"
       >
-        <span>Transforma tu sonrisa hoy</span>
-        <span class="material-icons">arrow_forward</span>
+        Transforma tu sonrisa hoy
+        <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink group-hover:rotate-[-35deg] transition-transform">
+          <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
+        </span>
       </a>
     </div>
   </div>
 </section>
 
 <style>
-  /* Optional: Smooth transition for scaling if not handled by Tailwind */
-  .group:hover img {
-    transform: scale(1.05);
+  .ba-before {
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  }
+  .ba-anim .ba-before { transition: clip-path 0.5s ease; }
+  .ba-anim .ba-handle { transition: left 0.5s ease; }
+  .ba-handle {
+    left: var(--pos);
+    transform: translateX(-50%);
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".ba").forEach((el) => {
+    let dragging = false;
+    const set = (pct: number) => {
+      const v = Math.max(0, Math.min(100, pct));
+      el.style.setProperty("--pos", `${v}%`);
+      el.setAttribute("aria-valuenow", String(Math.round(v)));
+    };
+    const fromEvent = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect();
+      set(((e.clientX - r.left) / r.width) * 100);
+    };
+    el.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      el.classList.remove("ba-anim");
+      el.setPointerCapture(e.pointerId);
+      fromEvent(e);
+    });
+    el.addEventListener("pointermove", (e) => {
+      if (dragging || e.pointerType === "mouse") fromEvent(e);
+    });
+    el.addEventListener("pointerup", () => (dragging = false));
+    el.addEventListener("pointercancel", () => (dragging = false));
+    el.addEventListener("keydown", (e) => {
+      const cur = parseFloat(el.style.getPropertyValue("--pos")) || 50;
+      if (e.key === "ArrowLeft") set(cur - 5);
+      if (e.key === "ArrowRight") set(cur + 5);
+    });
+
+    // Hint animation once visible
+    const io = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const frames = [50, 25, 75, 50];
+      let k = 0;
+      const step = () => {
+        if (dragging || k >= frames.length) return el.classList.remove("ba-anim");
+        el.classList.add("ba-anim");
+        set(frames[k++]);
+        setTimeout(step, 550);
+      };
+      setTimeout(step, 400);
+    }, { threshold: 0.6 });
+    io.observe(el);
+  });
+</script>

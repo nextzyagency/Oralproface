@@ -1,69 +1,95 @@
 ---
+import SideDecor from "./SideDecor.astro";
 
+const wa = (msg: string) => `https://wa.me/573103114580?text=${encodeURIComponent(msg)}`;
+const options = [
+  {
+    icon: "videocam",
+    title: "Valoración online",
+    text: "Accede a una valoración preliminar desde la comodidad de tu hogar, en cualquier parte del mundo.",
+    perks: ["Desde tu casa", "Videollamada", "Sin desplazamientos"],
+    cta: "Agendar online",
+    href: wa("Hola, deseo agendar una cita de valoración online."),
+  },
+  {
+    icon: "person_pin_circle",
+    title: "Valoración presencial",
+    text: "Visita nuestras instalaciones para un diagnóstico completo con tomografía 3D.",
+    perks: ["Tomografía 3D", "Diagnóstico completo", "3 sedes"],
+    cta: "Agendar presencial",
+    href: wa("Hola, deseo agendar una cita de valoración presencial."),
+    featured: true,
+  },
+];
 ---
 
-<section class="py-20 bg-medical-gray">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <h2
-        class="font-display text-3xl font-bold text-medical-blue"
-      >
-        Agende ahora su cita de valoración
-      </h2>
-      <p class="mt-3 text-slate-600 text-lg">
-        Da el primer paso hacia tu nueva sonrisa hoy mismo.
-      </p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      <div
-        class="bg-white p-8 shadow-sm border border-slate-200 flex flex-col items-center text-center transition-transform hover:-translate-y-1 hover:border-lime"
-      >
-        <div
-          class="w-16 h-16 bg-medical-gray flex items-center justify-center text-primary mb-4"
-        >
-          <span class="material-icons text-3xl">videocam</span>
-        </div>
-        <h3 class="font-bold text-xl text-medical-blue mb-2">
-          Cita de valoración online
-        </h3>
-        <p
-          class="text-slate-600 text-sm mb-6 px-4 font-medium"
-        >
-          Accede a nuestro servicio de valoración preliminar desde la comodidad
-          de tu hogar en cualquier parte del mundo.
-        </p>
-        <a
-          class="w-full bg-primary hover:bg-lime hover:text-medical-blue text-white font-medium py-3 transition-colors flex justify-center items-center gap-2"
-          href="#"
-        >
-          Agenda su cita online
-          <span class="material-icons text-sm">logout</span>
-        </a>
+<section id="cita" class="relative py-24 sm:py-32 bg-gradient-to-b from-white to-medical-gray overflow-clip">
+  <SideDecor
+    items={[
+      { name: "tooth", side: "left", top: "40%", size: 80, rotate: 10, speed: 0.4, offset: 20 },
+      { name: "mirror", side: "right", top: "16%", size: 52, rotate: 22, speed: 0.5, offset: 30, mobile: true },
+    ]}
+  />
+
+  <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
+    <div class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-medical-blue via-[#0d3f6d] to-ink p-6 sm:p-10 lg:p-14 shadow-2xl shadow-medical-blue/30">
+      <div class="pointer-events-none absolute -right-24 -top-24 w-96 h-96 rounded-full bg-primary/40 blur-3xl" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-lime/20 blur-3xl" aria-hidden="true"></div>
+
+      <div class="relative text-center max-w-2xl mx-auto">
+        <span data-reveal class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-lime">
+          <span class="material-symbols-rounded text-[16px]">event_available</span> Agenda tu cita
+        </span>
+        <h2 data-reveal class="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
+          Da hoy el primer paso hacia tu nueva sonrisa
+        </h2>
+        <p data-reveal class="mt-4 text-lg text-white/70">Elige cómo prefieres tu cita de valoración. Te respondemos por WhatsApp.</p>
       </div>
-      <div
-        class="bg-white p-8 shadow-sm border border-slate-200 flex flex-col items-center text-center transition-transform hover:-translate-y-1 hover:border-lime"
-      >
-        <div
-          class="w-16 h-16 bg-medical-gray flex items-center justify-center text-primary mb-4"
-        >
-          <span class="material-icons text-3xl">person_pin_circle</span>
-        </div>
-        <h3 class="font-bold text-xl text-medical-blue mb-2">
-          Cita de valoración presencial
-        </h3>
-        <p
-          class="text-slate-600 text-sm mb-6 px-4 font-medium"
-        >
-          Visita nuestras instalaciones de última generación para un diagnóstico
-          completo con tomografía 3D.
-        </p>
-        <a
-          class="w-full bg-primary hover:bg-lime hover:text-medical-blue text-white font-medium py-3 transition-colors flex justify-center items-center gap-2"
-          href="#"
-        >
-          Agenda su cita presencial
-          <span class="material-icons text-sm">person</span>
-        </a>
+
+      <div class="relative mt-10 grid md:grid-cols-2 gap-5">
+        {
+          options.map((o, i) => (
+            <div
+              data-reveal
+              data-reveal-delay={i * 0.1}
+              class:list={[
+                "group relative flex flex-col rounded-[1.75rem] p-7 sm:p-8 transition-transform duration-300 hover:-translate-y-1",
+                o.featured ? "bg-white text-ink" : "bg-white/[0.06] border border-white/15 text-white",
+              ]}
+            >
+              {o.featured && (
+                <span class="absolute -top-3 right-6 rounded-full bg-lime px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink shadow">
+                  Recomendada
+                </span>
+              )}
+              <span class:list={["grid place-items-center w-14 h-14 rounded-2xl", o.featured ? "bg-primary/10 text-primary" : "bg-white/10 text-lime"]}>
+                <span class="material-symbols-rounded text-[30px]">{o.icon}</span>
+              </span>
+              <h3 class="mt-5 font-display text-2xl font-bold">{o.title}</h3>
+              <p class:list={["mt-2 leading-relaxed", o.featured ? "text-slate-600" : "text-white/70"]}>{o.text}</p>
+              <ul class="mt-5 space-y-2 mb-8">
+                {o.perks.map((p) => (
+                  <li class="flex items-center gap-2 text-sm font-medium">
+                    <span class:list={["material-symbols-rounded text-[20px]", o.featured ? "text-primary" : "text-lime"]}>check_circle</span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={o.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class:list={[
+                  "mt-auto inline-flex items-center justify-center gap-2 rounded-full py-4 font-bold transition-colors",
+                  o.featured ? "bg-lime text-ink hover:bg-primary hover:text-white" : "bg-white text-ink hover:bg-lime",
+                ]}
+              >
+                {o.cta}
+                <span class="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>

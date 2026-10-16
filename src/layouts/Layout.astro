@@ -3,34 +3,97 @@ import "../styles/global.css";
 ---
 
 <!doctype html>
-<html class="scroll-smooth overflow-x-hidden" lang="es">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Oral ProFace - Implantología Estratégica</title>
     <meta
-      content="Recuperamos tu sonrisa con implantología estratégica dental avanzada."
+      content="Recuperamos tu sonrisa con implantología estratégica dental avanzada. Dientes fijos en 72 horas, sin injertos óseos complejos."
       name="description"
     />
+    <meta name="theme-color" content="#0F4C81" />
     <link href="/imagenes/icon.jpg" rel="icon" type="image/jpeg" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,0&display=block"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
-      rel="stylesheet"
-    />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+    <style is:global>
+      .material-symbols-rounded {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        line-height: 1;
+        user-select: none;
+      }
+      .icon-fill {
+        font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+      }
+    </style>
   </head>
   <body
-    class="font-sans text-slate-600 bg-background-light antialiased transition-colors duration-300 overflow-x-hidden w-full"
+    class="font-sans text-slate-600 bg-background-light antialiased overflow-x-clip w-full"
   >
     <slot />
+
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // Reveal on scroll
+      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+        const delay = parseFloat(el.dataset.revealDelay || "0");
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: reduce ? 0 : 0.9,
+          delay,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        });
+      });
+
+      // Parallax (data-speed: positive moves slower, negative faster)
+      if (!reduce) {
+        gsap.utils.toArray<HTMLElement>("[data-speed]").forEach((el) => {
+          const speed = parseFloat(el.dataset.speed || "0");
+          gsap.to(el, {
+            yPercent: speed * -100,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el.closest("[data-parallax-scope]") || el,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        });
+      }
+
+      // Animated counters
+      gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
+        const end = parseFloat(el.dataset.count || "0");
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: end,
+          duration: reduce ? 0 : 1.8,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          onUpdate: () => (el.textContent = Math.round(obj.v).toString()),
+        });
+      });
+
+      window.addEventListener("load", () => ScrollTrigger.refresh());
+    </script>
   </body>
 </html>

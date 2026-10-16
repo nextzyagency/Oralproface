@@ -1,0 +1,166 @@
+---
+// Soft "3D" dental illustrations (gradients + highlights) used as floating decorations.
+interface Props {
+  name: "tooth" | "implant" | "sparkle" | "brush" | "mirror" | "shield" | "screw" | "cross" | "crown";
+  class?: string;
+}
+const { name, class: className = "" } = Astro.props;
+const id = `di-${name}-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+{name === "tooth" && (
+  <svg class={className} viewBox="0 0 100 112" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-a`} x1="15" y1="10" x2="90" y2="105" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#ffffff" />
+        <stop offset=".55" stop-color="#eaf4fb" />
+        <stop offset="1" stop-color="#b9d9ee" />
+      </linearGradient>
+      <radialGradient id={`${id}-b`} cx="0" cy="0" r="1" gradientTransform="translate(34 28) rotate(50) scale(26 14)" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#fff" />
+        <stop offset="1" stop-color="#fff" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <ellipse cx="50" cy="108" rx="26" ry="3.5" fill="#0F4C81" opacity=".12" />
+    <path d="M50 14C38 4 18 6 12 22 6 38 12 52 18 62c4 8 4 22 8 34 3 10 12 10 14 0 3-12 4-22 10-22s7 10 10 22c2 10 11 10 14 0 4-12 4-26 8-34 6-10 12-24 6-40C82 6 62 4 50 14Z" fill={`url(#${id}-a)`} stroke="#9cc7e3" stroke-width="1.5" />
+    <path d="M50 14c-6 5-12 7-18 7" stroke="#9cc7e3" stroke-width="1.5" stroke-linecap="round" />
+    <ellipse cx="34" cy="28" rx="16" ry="8" fill={`url(#${id}-b)`} transform="rotate(-30 34 28)" />
+  </svg>
+)}
+
+{name === "implant" && (
+  <svg class={className} viewBox="0 0 64 150" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-m`} x1="10" y1="0" x2="54" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#7d8da0" />
+        <stop offset=".35" stop-color="#eef3f8" />
+        <stop offset=".6" stop-color="#b4c1ce" />
+        <stop offset="1" stop-color="#5f6f82" />
+      </linearGradient>
+      <linearGradient id={`${id}-c`} x1="6" y1="4" x2="58" y2="52" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#fff" />
+        <stop offset="1" stop-color="#cfe5f3" />
+      </linearGradient>
+    </defs>
+    <path d="M32 6c-8-6-22-5-25 7-3 10 0 20 3 26 2 4 4 9 6 12h32c2-3 4-8 6-12 3-6 6-16 3-26-3-12-17-13-25-7Z" fill={`url(#${id}-c)`} stroke="#9cc7e3" stroke-width="1.4" />
+    <path d="M20 52h24l-3 12H23l-3-12Z" fill={`url(#${id}-m)`} />
+    <path d="M17 66h30l-2 58c-1 10-6 18-13 20-7-2-12-10-13-20l-2-58Z" fill={`url(#${id}-m)`} />
+    <g stroke="#56677a" stroke-width="2.2" stroke-linecap="round" opacity=".55">
+      <path d="M16 74l32-5M16 84l32-5M16.5 94l31-5M17 104l30-5M17.5 114l29-5M18.5 124l27-5M21 134l22-5" />
+    </g>
+    <ellipse cx="32" cy="149" rx="14" ry="1.6" fill="#0F4C81" opacity=".12" />
+  </svg>
+)}
+
+{name === "screw" && (
+  <svg class={className} viewBox="0 0 40 110" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-g`} x1="6" y1="0" x2="34" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#a17d1f" />
+        <stop offset=".4" stop-color="#fbe7a6" />
+        <stop offset="1" stop-color="#8a6a17" />
+      </linearGradient>
+    </defs>
+    <rect x="5" y="4" width="30" height="16" rx="5" fill={`url(#${id}-g)`} />
+    <path d="M14 8h12" stroke="#6b5212" stroke-width="3" stroke-linecap="round" />
+    <path d="M11 20h18v70c0 8-4 14-9 16-5-2-9-8-9-16V20Z" fill={`url(#${id}-g)`} />
+    <g stroke="#6b5212" stroke-width="1.8" opacity=".6" stroke-linecap="round">
+      <path d="M11 30l18-4M11 40l18-4M11 50l18-4M11 60l18-4M11 70l18-4M11 80l18-4M12 90l16-4" />
+    </g>
+  </svg>
+)}
+
+{name === "sparkle" && (
+  <svg class={className} viewBox="0 0 80 80" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-s`} x1="10" y1="10" x2="70" y2="70" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#d4f54a" />
+        <stop offset="1" stop-color="#7fb000" />
+      </linearGradient>
+    </defs>
+    <path d="M40 4c3 18 8 31 36 36-28 5-33 18-36 36-3-18-8-31-36-36 28-5 33-18 36-36Z" fill={`url(#${id}-s)`} />
+    <path d="M40 22c1 8 4 14 14 18" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".6" />
+  </svg>
+)}
+
+{name === "brush" && (
+  <svg class={className} viewBox="0 0 140 40" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-h`} x1="0" y1="10" x2="0" y2="34" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#4fb3e0" />
+        <stop offset="1" stop-color="#0F4C81" />
+      </linearGradient>
+    </defs>
+    <rect x="4" y="22" width="100" height="10" rx="5" fill={`url(#${id}-h)`} />
+    <rect x="96" y="20" width="40" height="14" rx="5" fill={`url(#${id}-h)`} />
+    <g fill="#ffffff" stroke="#9cc7e3" stroke-width="1">
+      <rect x="100" y="4" width="5" height="16" rx="2" />
+      <rect x="107" y="2" width="5" height="18" rx="2" />
+      <rect x="114" y="2" width="5" height="18" rx="2" />
+      <rect x="121" y="2" width="5" height="18" rx="2" />
+      <rect x="128" y="4" width="5" height="16" rx="2" />
+    </g>
+    <rect x="14" y="24" width="60" height="2.5" rx="1.25" fill="#fff" opacity=".45" />
+  </svg>
+)}
+
+{name === "mirror" && (
+  <svg class={className} viewBox="0 0 60 150" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-m`} x1="18" y1="0" x2="42" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#7d8da0" />
+        <stop offset=".45" stop-color="#f1f5f9" />
+        <stop offset="1" stop-color="#6b7a8c" />
+      </linearGradient>
+      <radialGradient id={`${id}-g`} cx="0" cy="0" r="1" gradientTransform="translate(24 20) scale(22)" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#ffffff" />
+        <stop offset="1" stop-color="#9fd3ee" />
+      </radialGradient>
+    </defs>
+    <circle cx="30" cy="26" r="22" fill={`url(#${id}-m)`} />
+    <circle cx="30" cy="26" r="17" fill={`url(#${id}-g)`} />
+    <path d="M27 48h6l3 96a6 6 0 0 1-12 0l3-96Z" fill={`url(#${id}-m)`} />
+    <path d="M22 18a10 10 0 0 1 10-6" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+  </svg>
+)}
+
+{name === "shield" && (
+  <svg class={className} viewBox="0 0 100 112" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-s`} x1="10" y1="4" x2="90" y2="108" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#4fb3e0" />
+        <stop offset="1" stop-color="#0F4C81" />
+      </linearGradient>
+    </defs>
+    <path d="M50 4l40 14v32c0 28-18 48-40 58C28 98 10 78 10 50V18L50 4Z" fill={`url(#${id}-s)`} />
+    <path d="M50 4l40 14v32c0 6-1 12-3 17L50 4Z" fill="#fff" opacity=".12" />
+    <path d="M50 38c-5-4-14-3-16 4-2 7 1 13 3 17 2 4 2 11 4 16 1 4 5 4 6 0 1-5 1-9 3-9s2 4 3 9c1 4 5 4 6 0 2-5 2-12 4-16 2-4 5-10 3-17-2-7-11-8-16-4Z" fill="#fff" />
+  </svg>
+)}
+
+{name === "cross" && (
+  <svg class={className} viewBox="0 0 80 80" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-c`} x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#ffffff" />
+        <stop offset="1" stop-color="#dbeefa" />
+      </linearGradient>
+    </defs>
+    <circle cx="40" cy="40" r="36" fill={`url(#${id}-c)`} stroke="#b9d9ee" stroke-width="1.5" />
+    <path d="M34 20h12v14h14v12H46v14H34V46H20V34h14V20Z" fill="#178AC1" />
+  </svg>
+)}
+
+{name === "crown" && (
+  <svg class={className} viewBox="0 0 100 80" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-k`} x1="10" y1="6" x2="90" y2="76" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#ffffff" />
+        <stop offset="1" stop-color="#c6e1f2" />
+      </linearGradient>
+    </defs>
+    <path d="M12 30c-4-14 8-26 18-20 6 4 10 4 14 0 4-6 12-6 16 0 4 4 8 4 14 0 10-6 22 6 18 20-3 12-8 24-14 36-4 8-48 8-52 0-6-12-11-24-14-36Z" fill={`url(#${id}-k)`} stroke="#9cc7e3" stroke-width="1.5" />
+    <path d="M24 22c4-4 10-4 12 0" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+    <path d="M30 66c12 4 28 4 40 0" stroke="#9cc7e3" stroke-width="1.5" stroke-linecap="round" />
+  </svg>
+)}

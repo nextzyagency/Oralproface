@@ -1,0 +1,63 @@
+---
+import SideDecor from "./SideDecor.astro";
+
+const steps = [
+  { icon: "chat", t: "Valoración", d: "Online o presencial. Escuchamos tu caso y resolvemos tus dudas." },
+  { icon: "view_in_ar", t: "Planificación digital", d: "Tomografía 3D y diseño de tu tratamiento con precisión milimétrica." },
+  { icon: "medical_services", t: "Colocación del implante", d: "Procedimiento mínimamente invasivo, con anestesia y acompañamiento." },
+  { icon: "sentiment_very_satisfied", t: "Tu nueva sonrisa", d: "Dientes fijos con carga inmediata y controles de seguimiento." },
+];
+---
+
+<section id="proceso" class="relative py-24 sm:py-32 bg-medical-gray overflow-clip">
+  <SideDecor
+    items={[
+      { name: "implant", side: "left", top: "18%", size: 64, rotate: -14, speed: 0.4, offset: 28, mobile: true },
+      { name: "sparkle", side: "right", top: "24%", size: 44, rotate: 0, speed: 0.7, delay: 0.8, offset: 50 },
+      { name: "cross", side: "right", top: "70%", size: 58, rotate: 10, speed: 0.35, offset: 22 },
+    ]}
+  />
+
+  <div class="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto">
+      <span data-reveal class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary shadow-sm">
+        <span class="material-symbols-rounded text-[16px]">route</span> Paso a paso
+      </span>
+      <h2 data-reveal class="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight">
+        Así de simple es <span class="text-gradient">recuperar tu sonrisa</span>
+      </h2>
+    </div>
+
+    <ol id="process-list" class="relative mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <!-- connecting line (desktop) -->
+      <div class="hidden lg:block absolute top-8 left-[12%] right-[12%] h-0.5 bg-slate-200" aria-hidden="true">
+        <div id="process-line" class="h-full w-full origin-left scale-x-0 bg-gradient-to-r from-primary to-lime"></div>
+      </div>
+      {
+        steps.map((s, i) => (
+          <li data-reveal data-reveal-delay={i * 0.12} class="relative text-center">
+            <div class="relative mx-auto grid place-items-center w-16 h-16 rounded-2xl bg-white text-primary shadow-lg ring-8 ring-medical-gray">
+              <span class="material-symbols-rounded text-[30px]">{s.icon}</span>
+              <span class="absolute -top-2 -right-2 grid place-items-center w-7 h-7 rounded-full bg-lime text-xs font-bold text-ink">{i + 1}</span>
+            </div>
+            <div class="mt-6 rounded-3xl bg-white p-6 shadow-sm border border-slate-100 h-[calc(100%-5.5rem)]">
+              <h3 class="font-display text-lg font-bold text-ink">{s.t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to("#process-line", {
+    scaleX: 1,
+    ease: "none",
+    scrollTrigger: { trigger: "#process-list", start: "top 75%", end: "bottom 60%", scrub: true },
+  });
+</script>

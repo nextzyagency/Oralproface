@@ -1,112 +1,125 @@
 ---
+import SideDecor from "./SideDecor.astro";
 
+const services = [
+  {
+    icon: "biotech",
+    title: "Implantes estratégicos basales",
+    text: "Fijación en hueso cortical profundo para máxima estabilidad. Ideal para casos de atrofia ósea severa, sin injertos.",
+    tags: ["Atrofia severa", "Sin injertos"],
+    big: true,
+  },
+  {
+    icon: "timer",
+    title: "Carga inmediata",
+    text: "Dientes fijos en menos de 72 horas. Recupera tu sonrisa y tu función masticatoria rápidamente.",
+    tags: ["72 horas"],
+  },
+  {
+    icon: "medical_services",
+    title: "Rehabilitación oral completa",
+    text: "Restauración total de la boca combinando estética y funcionalidad.",
+    tags: ["Arcada completa"],
+  },
+  {
+    icon: "3d_rotation",
+    title: "Diseño de sonrisa digital",
+    text: "Visualiza tu nueva sonrisa antes de empezar con nuestra tecnología de escaneo 3D.",
+    tags: ["Escaneo 3D", "Previsualización"],
+    wide: true,
+  },
+];
 ---
 
-<section class="py-20 bg-white" id="servicios">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-primary font-bold tracking-wider uppercase text-sm"
-        >Nuestros Tratamientos</span
-      >
-      <h2
-        class="mt-2 font-display text-3xl md:text-4xl font-bold text-medical-blue"
-      >
-        Excelencia en cada procedimiento
-      </h2>
-      <p class="mt-4 text-slate-600 text-lg">
-        Soluciones integrales diseñadas para durar toda la vida.
+<section id="servicios" class="relative py-24 sm:py-32 bg-white overflow-clip">
+  <SideDecor
+    items={[
+      { name: "screw", side: "left", top: "30%", size: 40, rotate: 25, speed: 0.6, offset: 40 },
+      { name: "tooth", side: "right", top: "14%", size: 74, rotate: 14, speed: 0.3, offset: 20, mobile: true },
+      { name: "brush", side: "left", top: "78%", size: 120, rotate: -30, speed: 0.4, offset: -10 },
+    ]}
+  />
+
+  <div class="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 lg:mb-16">
+      <div class="max-w-2xl">
+        <span data-reveal class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+          <span class="material-symbols-rounded text-[16px]">dentistry</span> Nuestros tratamientos
+        </span>
+        <h2 data-reveal class="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight">
+          Excelencia en <span class="text-gradient">cada procedimiento</span>
+        </h2>
+      </div>
+      <p data-reveal class="max-w-md text-lg text-slate-600">
+        Soluciones integrales diseñadas para durar, adaptadas a tu caso y a tu ritmo de vida.
       </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div
-        class="group bg-white p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:border-lime transition-all duration-300 overflow-hidden"
-      >
-        <div
-          class="w-14 h-14 bg-medical-gray flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform"
-        >
-          <span class="material-icons text-3xl">biotech</span>
-        </div>
-        <h3
-          class="font-display font-bold text-lg text-medical-blue mb-3"
-        >
-          Implantes Estratégicos Basales
-        </h3>
-        <p
-          class="text-sm text-slate-600 leading-relaxed font-medium"
-        >
-          Fijación en hueso cortical profundo para máxima estabilidad, ideal
-          para casos de atrofia severa.
-        </p>
-      </div>
-      <div
-        class="group bg-white p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:border-lime transition-all duration-300 overflow-hidden"
-      >
-        <div
-          class="w-14 h-14 bg-medical-gray flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform"
-        >
-          <span class="material-icons text-3xl">timer</span>
-        </div>
-        <h3
-          class="font-display font-bold text-lg text-medical-blue mb-3"
-        >
-          Carga Inmediata
-        </h3>
-        <p
-          class="text-sm text-slate-600 leading-relaxed font-medium"
-        >
-          Dientes fijos en menos de 72 horas. Recupera tu sonrisa y función
-          masticatoria rápidamente.
-        </p>
-      </div>
-      <div
-        class="group bg-white p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:border-lime transition-all duration-300 overflow-hidden"
-      >
-        <div
-          class="w-14 h-14 bg-medical-gray flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform"
-        >
-          <span class="material-icons text-3xl">medical_services</span>
-        </div>
-        <h3
-          class="font-display font-bold text-lg text-medical-blue mb-3"
-        >
-          Rehabilitación Oral Completa
-        </h3>
-        <p
-          class="text-sm text-slate-600 leading-relaxed font-medium"
-        >
-          Restauración total de la boca combinando estética y funcionalidad
-          perfecta.
-        </p>
-      </div>
-      <div
-        class="group bg-white p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:border-lime transition-all duration-300 overflow-hidden"
-      >
-        <div
-          class="w-14 h-14 bg-medical-gray flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform"
-        >
-          <span class="material-icons text-3xl">auto_awesome</span>
-        </div>
-        <h3
-          class="font-display font-bold text-lg text-medical-blue mb-3"
-        >
-          Diseño de Sonrisa Digital
-        </h3>
-        <p
-          class="text-sm text-slate-600 leading-relaxed font-medium"
-        >
-          Visualiza tu nueva sonrisa antes de empezar con nuestra tecnología de
-          escaneo 3D.
-        </p>
-      </div>
-    </div>
-    <div class="mt-12 text-center">
-      <a
-        class="inline-flex items-center text-primary font-semibold hover:text-medical-blue transition-colors"
-        href="#contacto"
-      >
-        Ver todos los servicios
-        <span class="material-icons ml-1 text-sm">arrow_forward</span>
-      </a>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {
+        services.map((s, i) => (
+          <article
+            data-reveal
+            data-reveal-delay={i * 0.08}
+            class:list={[
+              "service-card group relative overflow-hidden rounded-[2rem] p-7 sm:p-8 border transition-all duration-500",
+              s.big
+                ? "lg:row-span-2 bg-gradient-to-br from-medical-blue to-ink text-white border-transparent"
+                : "bg-medical-gray border-slate-100 hover:bg-white hover:border-primary/20 hover:shadow-2xl",
+              s.wide && "md:col-span-2",
+            ]}
+          >
+            <div
+              class="pointer-events-none absolute -right-16 -top-16 w-56 h-56 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle,rgba(166,214,8,0.35),transparent_70%)]"
+              aria-hidden="true"
+            />
+            <div class="relative flex h-full flex-col">
+              <div class="flex items-start justify-between">
+                <span
+                  class:list={[
+                    "grid place-items-center w-14 h-14 rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6",
+                    s.big ? "bg-lime text-ink" : "bg-white text-primary shadow-sm",
+                  ]}
+                >
+                  <span class="material-symbols-rounded text-[30px]">{s.icon}</span>
+                </span>
+                <span class:list={["font-display text-5xl font-bold", s.big ? "text-white/10" : "text-slate-200"]}>0{i + 1}</span>
+              </div>
+              <h3 class:list={["mt-6 font-display text-xl sm:text-2xl font-bold", s.big ? "text-white" : "text-ink"]}>{s.title}</h3>
+              <p class:list={["mt-3 leading-relaxed", s.big ? "text-white/75 text-lg" : "text-slate-600"]}>{s.text}</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                {s.tags.map((t) => (
+                  <span class:list={["rounded-full px-3 py-1 text-xs font-semibold", s.big ? "bg-white/10 text-lime" : "bg-primary/10 text-primary"]}>{t}</span>
+                ))}
+              </div>
+              {s.big && (
+                <div class="mt-auto pt-10">
+                  <div class="relative mx-auto w-40 sm:w-48">
+                    <img
+                      src="/imagenes/hero/imagen2.jpg"
+                      alt=""
+                      class="aspect-square w-full rounded-3xl object-cover ring-4 ring-white/10 opacity-90"
+                      loading="lazy"
+                    />
+                    <span class="absolute -bottom-3 -right-3 grid place-items-center w-14 h-14 rounded-2xl bg-lime text-ink shadow-xl">
+                      <span class="material-symbols-rounded">verified</span>
+                    </span>
+                  </div>
+                </div>
+              )}
+              <a
+                href="#cita"
+                class:list={[
+                  "mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold",
+                  s.big ? "text-lime" : "text-primary",
+                ]}
+              >
+                Consultar <span class="material-symbols-rounded text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>

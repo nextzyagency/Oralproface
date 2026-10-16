@@ -1,0 +1,64 @@
+---
+// Floating dental illustrations pinned to the left/right edges of a section.
+// The parent section must be `relative`.
+import DentalIcon from "./DentalIcon.astro";
+
+type Item = {
+  name: "tooth" | "implant" | "sparkle" | "brush" | "mirror" | "shield" | "screw" | "cross" | "crown";
+  side: "left" | "right";
+  top: string; // CSS top, e.g. "20%"
+  size: number; // px on desktop
+  rotate?: number; // deg
+  speed?: number; // parallax factor
+  delay?: number; // float animation delay (s)
+  offset?: number; // px from the edge (negative pushes off-screen)
+  mobile?: boolean; // keep visible (smaller) on phones
+  slow?: boolean;
+};
+
+interface Props {
+  items: Item[];
+}
+const { items } = Astro.props;
+---
+
+<div class="pointer-events-none absolute inset-0 z-[1] overflow-clip" aria-hidden="true" data-parallax-scope>
+  {
+    items.map((it) => (
+      <div
+        class:list={["absolute", it.mobile ? "block" : "hidden lg:block"]}
+        style={`top:${it.top};${it.side}:${it.offset ?? 16}px;--s:${it.size}px;`}
+        data-speed={it.speed ?? 0.3}
+      >
+        <div
+          class:list={[
+            "decor-item drop-shadow-[0_18px_24px_rgba(15,76,129,0.18)]",
+            it.slow ? "animate-float-slow" : "animate-float",
+          ]}
+          style={`--r:${it.rotate ?? 0}deg;animation-delay:${it.delay ?? 0}s;`}
+        >
+          <DentalIcon name={it.name} class="w-full h-auto" />
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .decor-item {
+    width: calc(var(--s) * 0.55);
+    opacity: 0.55;
+  }
+  @media (min-width: 1024px) {
+    .decor-item {
+      width: calc(var(--s) * 0.8);
+      opacity: 0.85;
+    }
+  }
+  @media (min-width: 1440px) {
+    .decor-item {
+      width: var(--s);
+      opacity: 1;
+    }
+  }
+</style>

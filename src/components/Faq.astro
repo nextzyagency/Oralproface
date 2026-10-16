@@ -1,0 +1,80 @@
+---
+import SideDecor from "./SideDecor.astro";
+
+const faqs = [
+  {
+    q: "¿Puedo ponerme implantes si me dijeron que no tengo suficiente hueso?",
+    a: "En muchos casos sí. La implantología basal y estratégica se ancla en el hueso cortical profundo, por lo que permite tratar casos de atrofia ósea sin necesidad de injertos complejos. En la valoración revisamos tu caso con tomografía 3D.",
+  },
+  {
+    q: "¿De verdad puedo tener dientes fijos en 72 horas?",
+    a: "Con la técnica de carga inmediata, en los casos indicados colocamos los dientes fijos en un plazo aproximado de 72 horas tras la cirugía. Tu especialista te confirmará si eres candidato.",
+  },
+  {
+    q: "¿El procedimiento duele?",
+    a: "Se realiza con anestesia y técnicas mínimamente invasivas. Después es normal sentir algo de molestia o inflamación durante unos días, que se controla con las indicaciones y la medicación que te damos.",
+  },
+  {
+    q: "¿Cuánto duran los implantes?",
+    a: "El titanio es un material biocompatible que se integra al hueso. Con buena higiene, controles periódicos y hábitos saludables, los implantes son una solución de largo plazo.",
+  },
+  {
+    q: "¿Cómo agendo mi valoración?",
+    a: "Puedes escribirnos por WhatsApp o usar el formulario de contacto. Ofrecemos valoración online y presencial en Barranquilla, Bogotá y Maracaibo.",
+  },
+];
+---
+
+<section id="faq" class="relative py-24 sm:py-32 bg-medical-gray overflow-clip">
+  <SideDecor
+    items={[
+      { name: "implant", side: "right", top: "20%", size: 66, rotate: 16, speed: 0.4, offset: 24 },
+      { name: "sparkle", side: "left", top: "60%", size: 44, speed: 0.6, delay: 0.4, offset: 40, mobile: true },
+    ]}
+  />
+
+  <div class="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 grid lg:grid-cols-12 gap-10 lg:gap-16">
+    <div class="lg:col-span-4">
+      <div class="lg:sticky lg:top-28">
+        <span data-reveal class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary shadow-sm">
+          <span class="material-symbols-rounded text-[16px]">help</span> Preguntas frecuentes
+        </span>
+        <h2 data-reveal class="mt-5 font-display text-3xl sm:text-4xl font-bold text-ink leading-tight">
+          Resolvemos tus <span class="text-gradient">dudas</span>
+        </h2>
+        <p data-reveal class="mt-4 text-slate-600">¿No encuentras tu pregunta? Escríbenos y un especialista te responde.</p>
+        <a
+          data-reveal
+          href="https://wa.me/573103114580?text=Hola,%20tengo%20una%20pregunta%20sobre%20implantes."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-semibold text-medical-blue shadow-sm hover:shadow-lg transition-shadow"
+        >
+          <span class="material-symbols-rounded text-[#25D366]">chat</span> Preguntar por WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="lg:col-span-8 space-y-3">
+      {
+        faqs.map((f, i) => (
+          <details data-reveal data-reveal-delay={i * 0.05} class="faq group rounded-3xl bg-white border border-slate-100 shadow-sm open:shadow-lg transition-shadow" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:p-6 font-display font-semibold text-ink sm:text-lg">
+              {f.q}
+              <span class="shrink-0 grid place-items-center w-10 h-10 rounded-full bg-medical-gray text-primary group-open:bg-primary group-open:text-white group-open:rotate-45 transition-all">
+                <span class="material-symbols-rounded">add</span>
+              </span>
+            </summary>
+            <p class="px-5 sm:px-6 pb-6 -mt-1 leading-relaxed text-slate-600">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

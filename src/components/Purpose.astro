@@ -1,34 +1,101 @@
 ---
+import SideDecor from "./SideDecor.astro";
 
+const chips = [
+  { icon: "bolt", text: "Carga inmediata" },
+  { icon: "healing", text: "Sin injertos óseos complejos" },
+  { icon: "view_in_ar", text: "Planificación digital 3D" },
+  { icon: "verified", text: "Titanio grado médico" },
+  { icon: "location_on", text: "Barranquilla · Bogotá · Maracaibo" },
+  { icon: "favorite", text: "Atención humana y cercana" },
+];
+
+const statement =
+  "Nos especializamos en casos complejos de atrofia ósea, donde otros han dicho que no es posible. Creemos que todos merecen sonreír con confianza y masticar sin dolor.";
 ---
 
-<section
-  class="py-20 bg-background-light relative overflow-hidden"
->
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h2
-      class="font-display text-3xl md:text-4xl font-bold text-medical-blue mb-6"
-    >
-      Nuestro Propósito
+<!-- Trust marquee -->
+<div class="relative z-10 bg-medical-blue py-4 overflow-clip -rotate-1 scale-[1.02] shadow-xl">
+  <div class="flex w-max animate-marquee hover:[animation-play-state:paused]">
+    {
+      [0, 1].map((dup) => (
+        <ul class="flex shrink-0 items-center gap-10 pr-10" aria-hidden={dup === 1 ? "true" : undefined}>
+          {chips.map((c) => (
+            <li class="flex items-center gap-3 whitespace-nowrap text-white/90 font-medium">
+              <span class="material-symbols-rounded text-lime">{c.icon}</span>
+              {c.text}
+              <span class="ml-7 text-lime/60">✦</span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>
+
+<section id="proposito" class="relative py-24 sm:py-32 bg-background-light overflow-clip">
+  <SideDecor
+    items={[
+      { name: "cross", side: "left", top: "20%", size: 64, rotate: -8, speed: 0.5, offset: 30 },
+      { name: "crown", side: "right", top: "30%", size: 90, rotate: 12, speed: 0.35, offset: 20, mobile: true },
+      { name: "sparkle", side: "right", top: "75%", size: 40, speed: 0.7, delay: 2, offset: 70 },
+    ]}
+  />
+
+  <div class="relative z-10 mx-auto max-w-5xl px-5 sm:px-8 text-center">
+    <span data-reveal class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+      <span class="material-symbols-rounded text-[16px]">flag</span> Nuestro propósito
+    </span>
+
+    <h2 data-reveal class="mt-6 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight">
+      Devolverte la <span class="text-gradient">calidad de vida</span>, no solo los dientes.
     </h2>
-    <div
-      class="w-24 h-1 bg-linear-to-r from-primary to-lime mx-auto mb-8"
-    >
-    </div>
-    <p class="text-lg md:text-xl text-neutral-gray leading-relaxed">
-      En Oral ProFace, nuestra misión fundamental es devolver la calidad de vida
-      a nuestros pacientes. Nos especializamos en casos complejos de atrofia
-      ósea, donde otros han dicho que no es posible. Creemos firmemente que
-      todos merecen sonreír con confianza y masticar sin dolor, recuperando la
-      plenitud de su vida social y personal.
+
+    <p id="purpose-words" class="mt-8 text-xl sm:text-2xl md:text-[1.7rem] leading-relaxed font-medium text-ink">
+      {statement.split(" ").map((w) => <span class="purpose-word">{w} </span>)}
     </p>
   </div>
-  <div
-    class="absolute top-10 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"
-  >
-  </div>
-  <div
-    class="absolute bottom-10 right-10 w-64 h-64 bg-lime/10 rounded-full blur-3xl -z-10"
-  >
+
+  <!-- Value cards -->
+  <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 mt-16 grid sm:grid-cols-3 gap-5">
+    {
+      [
+        { icon: "sentiment_satisfied", t: "Confianza al sonreír", d: "Recupera la seguridad para hablar, reír y fotografiarte sin pensarlo." },
+        { icon: "restaurant", t: "Come lo que quieras", d: "Dientes fijos que te permiten masticar con fuerza y sin dolor." },
+        { icon: "groups", t: "Vida social plena", d: "Vuelve a disfrutar reuniones y momentos sin preocupaciones." },
+      ].map((c, i) => (
+        <div
+          data-reveal
+          data-reveal-delay={i * 0.1}
+          class="group relative rounded-3xl border border-slate-200/80 bg-white p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        >
+          <div class="grid place-items-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-medical-blue text-white shadow-lg shadow-primary/30 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+            <span class="material-symbols-rounded text-[28px]">{c.icon}</span>
+          </div>
+          <h3 class="mt-5 font-display text-lg font-bold text-ink">{c.t}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">{c.d}</p>
+        </div>
+      ))
+    }
   </div>
 </section>
+
+<style>
+  .js .purpose-word {
+    opacity: 0.15;
+    transition: opacity 0.2s;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to(".purpose-word", {
+    opacity: 1,
+    stagger: 0.1,
+    ease: "none",
+    scrollTrigger: { trigger: "#purpose-words", start: "top 80%", end: "bottom 45%", scrub: true },
+  });
+</script>
