@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Loader from "../components/Loader.astro";
 ---
 
 <!doctype html>
@@ -41,6 +42,7 @@ import "../styles/global.css";
   <body
     class="font-sans text-slate-600 bg-background-light antialiased overflow-x-clip w-full"
   >
+    <Loader />
     <slot />
 
     <script>
