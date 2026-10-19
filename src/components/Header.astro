@@ -113,6 +113,22 @@ const links = [
   #site-header.is-hidden {
     transform: translateY(-120%);
   }
+  /* Compact mode (mobile, over the 3D implant): the bar collapses left → right until only the menu button remains */
+  #header-bar {
+    clip-path: inset(0 0 0 0 round 9999px);
+    transition: clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1), background 0.5s, box-shadow 0.5s;
+  }
+  #header-bar > :not(:last-child) {
+    transition: opacity 0.35s ease;
+  }
+  @media (max-width: 1023.98px) {
+    #site-header.is-compact #header-bar {
+      clip-path: inset(0 0 0 calc(100% - 70px) round 9999px);
+    }
+    #site-header.is-compact #header-bar > :not(:last-child) {
+      opacity: 0;
+    }
+  }
 </style>
 
 <script>
@@ -130,6 +146,7 @@ const links = [
   menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
 
   // Hide on scroll down, show on scroll up
+  const implantSection = document.getElementById("implante");
   let lastY = window.scrollY;
   window.addEventListener(
     "scroll",
@@ -137,7 +154,11 @@ const links = [
       const y = window.scrollY;
       header.classList.toggle("is-scrolled", y > 20);
       const menuOpen = !menu.classList.contains("hidden");
-      header.classList.toggle("is-hidden", y > lastY && y > 400 && !menuOpen);
+      // Collapse to just the menu button while the 3D implant section is pinned
+      const r = implantSection?.getBoundingClientRect();
+      const compact = !!r && r.top < 80 && r.bottom > window.innerHeight * 0.6;
+      header.classList.toggle("is-compact", compact);
+      header.classList.toggle("is-hidden", y > lastY && y > 400 && !menuOpen && !compact);
       lastY = y;
     },
     { passive: true }
