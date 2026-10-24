@@ -1,6 +1,103 @@
 ---
 import "../styles/global.css";
 import Loader from "../components/Loader.astro";
+import { sedes, faqs } from "../data/site";
+
+const site = "https://oralproface.online";
+const title = "Implantes dentales en Colombia en 72 horas | Oral ProFace";
+const description =
+  "Implantes dentales en Barranquilla y Bogotá con carga inmediata: dientes fijos en unas 72 horas, incluso con poco hueso y sin injertos. Agenda tu valoración.";
+const image = `${site}/imagenes/hero/imagen1.jpeg`;
+const canonical = new URL(Astro.url.pathname, site).href;
+
+const regiones = { Barranquilla: "Atlántico", Bogotá: "Bogotá D.C.", Maracaibo: "Zulia" };
+const paises = { Colombia: "CO", Venezuela: "VE" };
+
+const direccion = (s: (typeof sedes)[number]) => ({
+  "@type": "PostalAddress",
+  streetAddress: s.direccion.replace(/\.$/, ""),
+  addressLocality: s.ciudad,
+  addressRegion: regiones[s.ciudad as keyof typeof regiones],
+  addressCountry: paises[s.pais as keyof typeof paises],
+});
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["MedicalOrganization", "Dentist"],
+      "@id": `${site}/#org`,
+      name: "Oral ProFace",
+      alternateName: "Oralproface",
+      url: site,
+      logo: `${site}/imagenes/icon.jpg`,
+      image,
+      description,
+      telephone: "+573103114580",
+      email: "oralproimplantes@gmail.com",
+      medicalSpecialty: "Dentistry",
+      areaServed: [
+        { "@type": "Country", name: "Colombia" },
+        { "@type": "City", name: "Barranquilla" },
+        { "@type": "City", name: "Bogotá" },
+        { "@type": "City", name: "Maracaibo" },
+      ],
+      knowsAbout: [
+        "Implantes dentales",
+        "Implantes basales",
+        "Implantología estratégica",
+        "Carga inmediata",
+        "Atrofia ósea",
+        "Dentadura fija sobre implantes",
+      ],
+      sameAs: ["https://www.facebook.com/oralpoface", "https://www.instagram.com/oralproface/"],
+      founder: { "@id": `${site}/#rixio` },
+      address: sedes.map(direccion),
+      department: sedes.map((s) => ({
+        "@type": "Dentist",
+        name: `Oral ProFace ${s.ciudad}`,
+        telephone: `+${s.tel.replace(/\s/g, "")}`,
+        email: s.email,
+        url: `${site}/#contacto`,
+        image,
+        address: direccion(s),
+      })),
+      makesOffer: [
+        "Implantes dentales basales y estratégicos",
+        "Carga inmediata: dientes fijos en 72 horas",
+        "Rehabilitación oral completa con dentadura fija sobre implantes",
+        "Diseño de sonrisa digital",
+      ].map((name) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "MedicalProcedure", name },
+      })),
+    },
+    {
+      "@type": "Person",
+      "@id": `${site}/#rixio`,
+      name: "Dr. Rixio Martínez",
+      jobTitle: "Odontólogo implantólogo",
+      worksFor: { "@id": `${site}/#org` },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site}/#web`,
+      url: site,
+      name: "Oral ProFace",
+      inLanguage: "es",
+      publisher: { "@id": `${site}/#org` },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${site}/#faq`,
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -8,11 +105,23 @@ import Loader from "../components/Loader.astro";
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Oral ProFace - Implantología Estratégica</title>
-    <meta
-      content="Recuperamos tu sonrisa con implantología estratégica dental avanzada. Dientes fijos en 72 horas, sin injertos óseos complejos."
-      name="description"
-    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="Oral ProFace" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <meta name="theme-color" content="#0F4C81" />
     <link href="/imagenes/icon.jpg" rel="icon" type="image/jpeg" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />

@@ -1,29 +1,6 @@
 ---
 import SideDecor from "./SideDecor.astro";
-
-const sedes = [
-  {
-    ciudad: "Barranquilla",
-    pais: "Colombia",
-    direccion: "Cra. 51B #94-334, Centro Médico Vital.",
-    email: "oralproimplantes@gmail.com",
-    tel: "57 310 3114580",
-  },
-  {
-    ciudad: "Bogotá",
-    pais: "Colombia",
-    direccion: "Cll. 93B #17-42, Chicó Norte, Consultorio Dental Line.",
-    email: "oralproimplantes@gmail.com",
-    tel: "57 310 3114580",
-  },
-  {
-    ciudad: "Maracaibo",
-    pais: "Venezuela",
-    direccion: "Clínica Dr. Carlos Alaimo, IPS La Milagrosa, Av. 15 Delicias.",
-    email: "oralproimplantes@gmail.com",
-    tel: "57 310 3114580",
-  },
-];
+import { sedes } from "../data/site";
 
 const inputCls =
   "peer w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 pt-6 pb-2 text-white placeholder-transparent outline-none transition-all focus:border-lime focus:bg-white/10";
@@ -48,13 +25,14 @@ const labelCls =
     <!-- Info -->
     <div class="text-white">
       <span data-reveal class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-lime">
-        <span class="material-symbols-rounded text-[16px]">support_agent</span> Contacto
+        <span class="material-symbols-rounded text-[16px]">support_agent</span> Contacto y sedes
       </span>
       <h2 data-reveal class="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-        Comunícate <span class="italic text-lime">con nosotros</span>
+        Implantes dentales en <span class="italic text-lime">Barranquilla y Bogotá</span>
       </h2>
       <p data-reveal class="mt-4 max-w-md text-white/70">
-        Estamos listos para atenderte y resolver tus dudas sobre implantología en cualquiera de nuestras sedes.
+        Atendemos en Barranquilla y Bogotá, Colombia, y en Maracaibo, Venezuela. Elige tu sede o escríbenos
+        y te respondemos por WhatsApp.
       </p>
 
       <!-- Sede tabs -->
