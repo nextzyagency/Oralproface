@@ -45,8 +45,10 @@ const breadcrumb = {
   ],
 };
 
-const regiones: Record<string, string> = { Barranquilla: "Atlántico", Bogotá: "Bogotá D.C." };
+const regiones: Record<string, string> = { Barranquilla: "Atlántico", Bogotá: "Bogotá D.C.", Maracaibo: "Zulia" };
+const paises: Record<string, string> = { Colombia: "CO", Venezuela: "VE" };
 const areaServed: Record<string, string[]> = {
+  Maracaibo: ["Maracaibo", "San Francisco", "Cabimas", "Ciudad Ojeda", "Santa Rita"],
   Barranquilla: ["Barranquilla", "Soledad", "Malambo", "Puerto Colombia", "Galapa", "Santa Marta", "Cartagena", "Valledupar"],
   Bogotá: ["Bogotá", "Chía", "Cajicá", "Zipaquirá", "Soacha", "Mosquera", "Funza"],
 };
@@ -65,7 +67,7 @@ const principal = sede
         streetAddress: sede.direccion.replace(/\.$/, ""),
         addressLocality: sede.ciudad,
         addressRegion: regiones[sede.ciudad],
-        addressCountry: "CO",
+        addressCountry: paises[sede.pais] ?? "CO",
       },
       hasMap: mapa,
       medicalSpecialty: "Dentistry",

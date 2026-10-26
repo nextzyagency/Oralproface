@@ -571,6 +571,108 @@ export const paginas: Pagina[] = [
       },
     ],
   },
+  {
+    slug: "implantes-dentales-maracaibo",
+    tipo: "sede",
+    sede: 2,
+    nav: "Implantes en Maracaibo",
+    resumen: "Sede en la Clínica Dr. Carlos Alaimo, para Maracaibo y el Zulia.",
+    title: "Implantes dentales en Maracaibo en 72 h | Oral ProFace",
+    description:
+      "Implantes dentales en Maracaibo con dientes fijos en unas 72 horas, incluso con poco hueso. Clínica Dr. Carlos Alaimo, IPS La Milagrosa, Av. 15 Delicias.",
+    h1: "Implantes dentales en Maracaibo con dientes fijos en 72 horas",
+    intro:
+      "En Oral ProFace Maracaibo colocamos implantes dentales basales con carga inmediata en la Clínica Dr. Carlos Alaimo, IPS La Milagrosa, Av. 15 Delicias. Si usas dentadura postiza o te dijeron que no tienes hueso para un implante, en la valoración medimos tu hueso con tomografía 3D y te decimos con plan y presupuesto si puedes tener dientes fijos en unas 72 horas.",
+    imagen: "/imagenes/hero/imagen3.jpg",
+    imagenAlt: "Paciente sonriendo con sus dientes fijos después de un tratamiento de implantes de Oral ProFace",
+    actualizado: "2026-10-26",
+    ficha: [
+      { k: "Dirección", v: "Av. 15 Delicias, IPS La Milagrosa" },
+      { k: "Clínica", v: "Clínica Dr. Carlos Alaimo" },
+      { k: "Ciudad", v: "Maracaibo, Zulia, Venezuela" },
+      { k: "WhatsApp", v: "+57 300 8990189 (Colombia)", href: WA },
+      { k: "Valoración", v: "Presencial u online" },
+      { k: "Dirige", v: "Dr. Rixio Martínez, odontólogo implantólogo" },
+    ],
+    secciones: [
+      {
+        h2: "¿Puedo ponerme implantes dentales en Maracaibo si tengo poco hueso?",
+        p: [
+          "En muchos casos sí. Con la técnica convencional, cuando falta hueso en la cresta de la encía el plan habitual es un injerto y varios meses de espera antes de poner los dientes.",
+          "En nuestra sede de Maracaibo usamos implantes basales y estratégicos, que se anclan en el hueso cortical, la capa más densa del maxilar y la mandíbula. Ese hueso se conserva aunque la encía se haya reabsorbido, y por eso en muchos casos podemos poner dientes fijos sin injertos y con carga inmediata.",
+        ],
+        enlace: { href: "/implantes-basales/", label: "Qué son los implantes basales" },
+      },
+      {
+        h2: "¿Qué tratamientos de implantes hacemos en Maracaibo?",
+        lista: [
+          "Implantes basales y estratégicos para pacientes con atrofia ósea.",
+          "Carga inmediata: dientes fijos en unas 72 horas en los casos indicados.",
+          "Dentadura fija sobre implantes para dejar la prótesis removible.",
+          "Diseño de sonrisa digital con escaneo 3D.",
+        ],
+        enlace: { href: "/rehabilitacion-oral-completa/", label: "Dentadura fija sobre implantes" },
+      },
+      {
+        h2: "¿Cómo es el tratamiento en Maracaibo?",
+        pasos: pasosTratamiento,
+        enlace: { href: "/carga-inmediata/", label: "Cómo funciona la carga inmediata" },
+      },
+      {
+        h2: "¿Cuánto cuestan los implantes dentales en Maracaibo?",
+        p: [
+          "El precio depende de cuántos implantes necesitas, del tipo de prótesis y de si hacen falta extracciones antes de la cirugía. Después de la valoración con tomografía 3D recibes el presupuesto completo del tratamiento, antes de decidir.",
+        ],
+      },
+      {
+        h2: "¿Valoración presencial u online?",
+        p: ["Las dos sirven para empezar. Elige según dónde vives:"],
+        tabla: tablaValoracion,
+      },
+      {
+        h2: "¿Atienden pacientes de San Francisco, Cabimas y el resto del Zulia?",
+        p: [
+          "Sí. Atendemos pacientes de Maracaibo y de municipios cercanos como San Francisco, Cabimas, Ciudad Ojeda y Santa Rita, y también de otras ciudades del occidente de Venezuela.",
+          "Si vives lejos, haces primero la valoración online y llegas a Maracaibo con la cirugía programada. Como la carga inmediata se completa en unas 72 horas, el tratamiento cabe en una estadía corta.",
+        ],
+      },
+      {
+        h2: "¿Puedo hacerme el tratamiento en Colombia?",
+        p: [
+          "Sí. Si te queda más cómodo viajar, también atendemos en Barranquilla y en Bogotá con la misma técnica. La valoración online te sirve para elegir la sede y planificar el viaje.",
+        ],
+        enlace: { href: "/implantes-dentales-barranquilla/", label: "Ver la sede de Barranquilla" },
+      },
+      {
+        h2: "¿Quién te atiende y cómo agendo?",
+        p: [
+          "El tratamiento lo dirige el Dr. Rixio Martínez, odontólogo implantólogo, con planificación digital y tomografía 3D en cada caso. Para agendar, escríbenos por WhatsApp al +57 300 8990189. Es un número de Colombia, así que desde Venezuela marca con el prefijo +57.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Dónde queda la sede de Oral ProFace en Maracaibo?",
+        a: "En la Clínica Dr. Carlos Alaimo, IPS La Milagrosa, Av. 15 Delicias, Maracaibo, estado Zulia, Venezuela.",
+      },
+      {
+        q: "¿Cómo agendo una valoración en Maracaibo?",
+        a: "Escríbenos por WhatsApp al +57 300 8990189, un número de Colombia. Desde Venezuela marca el prefijo +57. Puedes elegir valoración presencial en Maracaibo o por videollamada.",
+      },
+      {
+        q: "¿Cuánto cuesta un implante dental en Maracaibo?",
+        a: "Depende del número de implantes, del tipo de prótesis y de los procedimientos previos. Te damos un presupuesto completo después de la valoración con tomografía 3D.",
+      },
+      {
+        q: "¿Puedo ponerme implantes en Maracaibo si me dijeron que no tengo hueso?",
+        a: "En muchos casos sí. Los implantes basales se anclan en el hueso cortical, que se conserva aunque se haya perdido el hueso de la encía. La tomografía 3D de la valoración confirma si eres candidato.",
+      },
+      {
+        q: "¿Duele ponerse implantes dentales?",
+        a: "La cirugía se hace con anestesia, así que no deberías sentir dolor durante el procedimiento. Después es normal tener molestia e inflamación unos días, que se controlan con la medicación que te indicamos.",
+      },
+    ],
+  },
 ];
 
 export const tratamientos = paginas.filter((p) => p.tipo === "tratamiento");
