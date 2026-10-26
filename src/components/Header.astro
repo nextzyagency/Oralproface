@@ -4,13 +4,16 @@ import logo from "../assets/logos/oralproface_fondo_transparente.png";
 
 const base = Astro.url.pathname === "/" ? "" : "/";
 const links = [
-  { href: "#inicio", label: "Inicio" },
   { href: "#nosotros", label: "Nosotros" },
-  { href: "#implante", label: "El implante" },
-  { href: "#servicios", label: "Servicios" },
+  { href: "#servicios", label: "Tratamientos" },
   { href: "#testimonios", label: "Resultados" },
   { href: "#faq", label: "Preguntas" },
-].map((l) => ({ ...l, href: base + l.href }));
+]
+  .map((l) => ({ ...l, href: base + l.href }))
+  .concat([
+    { href: "/implantes-dentales-barranquilla/", label: "Barranquilla" },
+    { href: "/implantes-dentales-bogota/", label: "Bogotá" },
+  ]);
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-50 px-3 sm:px-5 pt-3 transition-all duration-500">
@@ -30,7 +33,11 @@ const links = [
           <a
             href={l.href}
             data-nav
-            class="nav-link relative px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-medical-blue transition-colors"
+            aria-current={l.href === Astro.url.pathname ? "page" : undefined}
+            class:list={[
+              "nav-link relative px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-medical-blue transition-colors",
+              { "is-active": l.href === Astro.url.pathname },
+            ]}
           >
             {l.label}
           </a>

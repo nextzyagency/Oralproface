@@ -1,7 +1,8 @@
 ---
 import SideDecor from "./SideDecor.astro";
+import { datos } from "../data/site";
 
-const wa = "https://wa.me/573103114580?text=Hola,%20deseo%20agendar%20una%20valoración%20de%20implantología.";
+const wa = "https://wa.me/573008990189?text=Hola,%20deseo%20agendar%20una%20valoración%20de%20implantología.";
 ---
 
 <section id="inicio" class="relative overflow-clip bg-gradient-to-b from-[#eef6fb] via-white to-background-light">
@@ -34,20 +35,20 @@ const wa = "https://wa.me/573103114580?text=Hola,%20deseo%20agendar%20una%20valo
         </div>
 
         <h1 class="hero-in mt-6 font-display text-[2.6rem] leading-[1.05] sm:text-6xl xl:text-7xl font-bold tracking-tight text-ink">
-          Implantes dentales
+          Implantes dentales en Colombia con
           <span class="relative inline-block">
-            <span class="text-gradient italic">sin miedo</span>
+            <span class="text-gradient italic">dientes fijos</span>
             <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 16" fill="none" preserveAspectRatio="none" aria-hidden="true">
               <path class="hero-underline" d="M3 12C70 4 180 2 297 9" stroke="#A6D608" stroke-width="5" stroke-linecap="round" />
             </svg>
           </span>
-          <br class="hidden sm:block" /> con dientes fijos en 72&nbsp;horas.
+          en 72&nbsp;horas.
         </h1>
 
         <p class="hero-in mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-slate-600">
-          Implantes basales y estratégicos en Colombia para pacientes a los que les dijeron que no tenían suficiente hueso.
-          <strong class="text-ink font-semibold">Sin injertos óseos complejos</strong>, con tomografía 3D
-          y un equipo que te acompaña en cada paso.
+          En Oral ProFace colocamos implantes basales y estratégicos a personas que usan plancha o a las que les dijeron
+          que no tenían hueso para un implante. Medimos tu hueso con tomografía 3D y, en los casos indicados, sales con
+          <strong class="text-ink font-semibold">dientes fijos en unas 72 horas, sin injertos óseos complejos</strong>.
         </p>
 
         <div class="hero-in mt-8 flex flex-col sm:flex-row gap-3">
@@ -72,11 +73,18 @@ const wa = "https://wa.me/573103114580?text=Hola,%20deseo%20agendar%20una%20valo
           </a>
         </div>
 
+        <p class="hero-in mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+          <span class="material-symbols-rounded text-[18px] text-primary">location_on</span>
+          <a href="/implantes-dentales-barranquilla/" class="font-semibold text-medical-blue underline decoration-primary/30 underline-offset-4 hover:text-primary">Implantes dentales en Barranquilla</a>
+          <span aria-hidden="true">·</span>
+          <a href="/implantes-dentales-bogota/" class="font-semibold text-medical-blue underline decoration-primary/30 underline-offset-4 hover:text-primary">Implantes dentales en Bogotá</a>
+        </p>
+
         <!-- Trust row -->
         <div class="hero-in mt-10 grid grid-cols-3 max-w-lg divide-x divide-slate-200 rounded-2xl border border-slate-200/80 bg-white/70 backdrop-blur py-4 shadow-sm">
           <div class="px-4 text-center">
-            <p class="font-display text-2xl sm:text-3xl font-bold text-medical-blue">+<span data-count="30">30</span></p>
-            <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Sonrisas transformadas</p>
+            <p class="font-display text-2xl sm:text-3xl font-bold text-medical-blue">+<span data-count={datos.pacientes}>{datos.pacientes}</span></p>
+            <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Pacientes con dientes fijos</p>
           </div>
           <div class="px-4 text-center">
             <p class="font-display text-2xl sm:text-3xl font-bold text-medical-blue"><span data-count="72">72</span>h</p>

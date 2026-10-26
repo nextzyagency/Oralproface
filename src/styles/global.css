@@ -36,6 +36,12 @@ html {
   scroll-padding-top: 96px;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 ::selection {
   background: var(--color-lime);
   color: var(--color-ink);

@@ -4,25 +4,40 @@ export const sedes = [
     pais: "Colombia",
     direccion: "Cra. 51B #94-334, Centro Médico Vital.",
     email: "oralproimplantes@gmail.com",
-    tel: "57 310 3114580",
+    tel: "57 300 8990189",
   },
   {
     ciudad: "Bogotá",
     pais: "Colombia",
     direccion: "Cll. 93B #17-42, Chicó Norte, Consultorio Dental Line.",
     email: "oralproimplantes@gmail.com",
-    tel: "57 310 3114580",
+    tel: "57 300 8990189",
   },
   {
     ciudad: "Maracaibo",
     pais: "Venezuela",
     direccion: "Clínica Dr. Carlos Alaimo, IPS La Milagrosa, Av. 15 Delicias.",
     email: "oralproimplantes@gmail.com",
-    tel: "57 310 3114580",
+    tel: "57 300 8990189",
   },
 ];
 
+// Datos comerciales reales. Rellenar con cifras verificables: si precioDesde es null, no se muestra precio.
+export const datos = {
+  pacientes: 30 as number, // pacientes / sonrisas tratadas (se muestra como "+N")
+  precioDesde: null as string | null, // ej. "$2.500.000 COP"
+};
+
+export const precioTexto = (lugar = "") =>
+  datos.precioDesde
+    ? `En Oral ProFace${lugar && ` ${lugar}`}, un implante dental cuesta desde ${datos.precioDesde}. El valor final depende`
+    : "El precio depende";
+
 export const faqs = [
+  {
+    q: "¿Qué es Oral ProFace?",
+    a: "Oral ProFace (Oralproface) es una clínica de implantes dentales en Colombia dirigida por el Dr. Rixio Martínez, odontólogo implantólogo. Se especializa en implantes basales y estratégicos con carga inmediata para pacientes con poco hueso, y atiende en Barranquilla, Bogotá y Maracaibo (Venezuela).",
+  },
   {
     q: "¿Puedo ponerme implantes dentales si me dijeron que no tengo suficiente hueso?",
     a: "En muchos casos sí. Los implantes basales y estratégicos se anclan en el hueso cortical profundo, que se conserva aunque se haya perdido hueso en la encía. Por eso permiten tratar casos de atrofia ósea sin injertos complejos. En la valoración revisamos tu caso con tomografía 3D.",
@@ -37,7 +52,7 @@ export const faqs = [
   },
   {
     q: "¿Cuánto cuesta un implante dental en Colombia?",
-    a: "El precio depende de cuántos implantes necesitas, del tipo de prótesis y de si hacen falta extracciones u otros procedimientos previos. Te entregamos un presupuesto exacto después de la valoración con tomografía 3D, para que conozcas el costo total del tratamiento antes de empezar.",
+    a: `${precioTexto()} de cuántos implantes necesitas, del tipo de prótesis y de si hacen falta extracciones u otros procedimientos previos. Te entregamos un presupuesto exacto después de la valoración con tomografía 3D, para que conozcas el costo total del tratamiento antes de empezar.`,
   },
   {
     q: "¿El procedimiento de implantes dentales duele?",
@@ -53,6 +68,6 @@ export const faqs = [
   },
   {
     q: "¿Dónde atienden y cómo agendo mi valoración?",
-    a: "Atendemos en Barranquilla (Centro Médico Vital), en Bogotá (Chicó Norte) y en Maracaibo, Venezuela. También ofrecemos valoración online por videollamada. Para agendar, escríbenos por WhatsApp al +57 310 3114580 o usa el formulario de contacto.",
+    a: "Atendemos en Barranquilla (Centro Médico Vital), en Bogotá (Chicó Norte) y en Maracaibo, Venezuela. También ofrecemos valoración online por videollamada. Para agendar, escríbenos por WhatsApp al +57 300 8990189 o usa el formulario de contacto.",
   },
 ];

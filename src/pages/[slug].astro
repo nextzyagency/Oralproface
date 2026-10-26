@@ -1,9 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
-import Appointment from "../components/Appointment.astro";
 import Footer from "../components/Footer.astro";
-import { paginas, tratamientos, sedesPaginas, url, type Pagina } from "../data/paginas";
+import { paginas, tratamientos, sedesPaginas, url, anchor, type Pagina } from "../data/paginas";
 import { sedes } from "../data/site";
 
 export function getStaticPaths() {
@@ -14,8 +13,8 @@ const { pagina } = Astro.props as { pagina: Pagina };
 const site = "https://oralproface.online";
 const pageUrl = `${site}${url(pagina.slug)}`;
 const sede = pagina.sede !== undefined ? sedes[pagina.sede] : undefined;
-const tel = "+573103114580";
-const wa = `https://wa.me/573103114580?text=${encodeURIComponent(
+const tel = "+573008990189";
+const wa = `https://wa.me/573008990189?text=${encodeURIComponent(
   sede
     ? `Hola, deseo agendar una valoración de implantes en ${sede.ciudad}.`
     : `Hola, deseo información sobre ${pagina.nav.toLowerCase()}.`
@@ -23,9 +22,20 @@ const wa = `https://wa.me/573103114580?text=${encodeURIComponent(
 const mapa = sede
   ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sede.direccion + " " + sede.ciudad)}`
   : "";
-const relacionadas = (pagina.tipo === "sede" ? tratamientos : [...tratamientos, ...sedesPaginas]).filter(
-  (p) => p.slug !== pagina.slug
-);
+const relacionadas = [...tratamientos, ...sedesPaginas].filter((p) => p.slug !== pagina.slug);
+
+const secciones = pagina.secciones.map((s) => ({ ...s, id: anchor(s.h2) }));
+const faqH2 = `Preguntas frecuentes${sede ? ` sobre implantes dentales en ${sede.ciudad}` : ""}`;
+const indice = [...secciones.map((s) => ({ id: s.id, label: s.h2 })), { id: "faq", label: "Preguntas frecuentes" }];
+const actualizado = new Date(`${pagina.actualizado}T12:00:00`).toLocaleDateString("es-CO", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+const ctaTitulo = sede ? `Agenda tu valoración en ${sede.ciudad}` : "¿Quieres saber si eres candidato?";
+const ctaTexto = sede
+  ? `Escríbenos por WhatsApp y elige valoración presencial en ${sede.direccion.replace(/\.$/, "")} o por videollamada.`
+  : "Envíanos tu caso por WhatsApp. En la valoración medimos tu hueso con tomografía 3D y te decimos qué plan te conviene, con presupuesto.";
 
 const breadcrumb = {
   "@type": "BreadcrumbList",
@@ -36,6 +46,10 @@ const breadcrumb = {
 };
 
 const regiones: Record<string, string> = { Barranquilla: "Atlántico", Bogotá: "Bogotá D.C." };
+const areaServed: Record<string, string[]> = {
+  Barranquilla: ["Barranquilla", "Soledad", "Malambo", "Puerto Colombia", "Galapa", "Santa Marta", "Cartagena", "Valledupar"],
+  Bogotá: ["Bogotá", "Chía", "Cajicá", "Zipaquirá", "Soacha", "Mosquera", "Funza"],
+};
 const principal = sede
   ? {
       "@type": "Dentist",
@@ -54,16 +68,31 @@ const principal = sede
         addressCountry: "CO",
       },
       hasMap: mapa,
+      medicalSpecialty: "Dentistry",
+      areaServed: (areaServed[sede.ciudad] ?? [sede.ciudad]).map((name) => ({ "@type": "City", name })),
+      availableService: tratamientos.map((p) => ({ "@type": "MedicalProcedure", name: p.procedimiento, url: `${site}${url(p.slug)}` })),
     }
   : {
       "@type": "MedicalProcedure",
       "@id": `${pageUrl}#procedimiento`,
       name: pagina.procedimiento,
-      description: pagina.description,
+      description: pagina.intro,
       url: pageUrl,
       bodyLocation: "Maxilar y mandíbula",
-      howPerformed: pagina.intro,
     };
+const webPage = {
+  "@type": "MedicalWebPage",
+  "@id": `${pageUrl}#webpage`,
+  url: pageUrl,
+  name: pagina.title,
+  description: pagina.description,
+  inLanguage: "es-CO",
+  dateModified: pagina.actualizado,
+  isPartOf: { "@id": `${site}/#web` },
+  publisher: { "@id": `${site}/#org` },
+  about: { "@id": sede ? `${pageUrl}#sede` : `${pageUrl}#procedimiento` },
+  breadcrumb,
+};
 ---
 
 <Layout
@@ -71,162 +100,250 @@ const principal = sede
   description={pagina.description}
   image={pagina.imagen}
   faqs={pagina.faqs}
-  extraSchema={[breadcrumb, principal]}
+  extraSchema={[webPage, principal]}
 >
   <Header />
-  <main>
-    <section class="relative overflow-clip bg-gradient-to-b from-[#eef6fb] via-white to-background-light">
-      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div class="absolute -top-40 -right-40 w-[38rem] h-[38rem] rounded-full bg-primary/15 blur-3xl"></div>
-        <div class="absolute top-1/2 -left-40 w-[28rem] h-[28rem] rounded-full bg-lime/15 blur-3xl"></div>
-      </div>
-      <div class="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24">
+  <main class="bg-background-light">
+    <section class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-6xl px-4 sm:px-8 pt-28 sm:pt-32 pb-14 lg:pb-20">
         <nav aria-label="Ruta" class="text-sm text-slate-500">
           <ol class="flex flex-wrap items-center gap-1">
-            <li><a href="/" class="hover:text-primary">Inicio</a></li>
+            <li><a href="/" class="hover:text-medical-blue">Inicio</a></li>
             <li aria-hidden="true" class="material-symbols-rounded text-[16px]">chevron_right</li>
-            <li aria-current="page" class="text-medical-blue font-medium">{pagina.nav}</li>
+            <li aria-current="page" class="text-ink font-medium">{pagina.nav}</li>
           </ol>
         </nav>
-        <div class="mt-8 grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+
+        <div class="mt-8 grid lg:grid-cols-12 gap-10 lg:gap-14">
           <div class="lg:col-span-7">
-            <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-              {pagina.eyebrow}
-            </span>
-            <h1 class="mt-5 font-display text-4xl sm:text-5xl xl:text-6xl font-bold leading-[1.08] tracking-tight text-ink">
+            <h1 class="font-display text-[2.15rem] sm:text-5xl lg:text-[3.35rem] font-bold leading-[1.07] tracking-[-0.025em] text-ink text-balance">
               {pagina.h1}
             </h1>
-            <p class="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600">{pagina.intro}</p>
+            <p class="mt-6 max-w-[62ch] text-lg leading-[1.7] text-slate-700">{pagina.intro}</p>
             <div class="mt-8 flex flex-col sm:flex-row gap-3">
               <a
                 href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group inline-flex items-center justify-center gap-3 rounded-full bg-lime px-7 py-4 font-bold text-ink shadow-xl shadow-lime/30 hover:-translate-y-0.5 transition-all"
+                class="inline-flex items-center justify-center gap-2.5 rounded-full bg-lime px-7 py-3.5 font-bold text-ink transition-colors hover:bg-[#b8e62a]"
               >
-                <span class="material-symbols-rounded">calendar_month</span>
-                Agendar valoración
-                <span class="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                <span class="material-symbols-rounded text-[22px]">chat</span>
+                Agendar por WhatsApp
               </a>
               <a
-                href="#cita"
-                class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-4 font-semibold text-ink hover:border-primary hover:text-primary transition-colors"
+                href={`tel:${tel}`}
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-6 py-3.5 font-semibold text-ink transition-colors hover:border-medical-blue hover:text-medical-blue"
               >
-                Valoración online o presencial
+                <span class="material-symbols-rounded text-[20px]">call</span>
+                +57 300 8990189
               </a>
             </div>
+            <p class="mt-8 text-sm text-slate-500">
+              Actualizado el <time datetime={pagina.actualizado}>{actualizado}</time> · Información de Oral ProFace, clínica
+              dirigida por el Dr. Rixio Martínez, odontólogo implantólogo.
+            </p>
           </div>
-          <div class="lg:col-span-5">
+
+          <aside class="lg:col-span-5" aria-label={sede ? "Datos de la sede" : "Ficha del tratamiento"}>
             <img
               src={pagina.imagen}
               alt={pagina.imagenAlt}
-              class="w-full aspect-[4/3] rounded-[2rem] object-cover shadow-2xl ring-8 ring-white"
+              width="800"
+              height="600"
+              class="w-full aspect-[4/3] rounded-2xl object-cover"
               loading="eager"
+              fetchpriority="high"
             />
-          </div>
+            <dl class="ficha mt-6">
+              {
+                pagina.ficha.map((d) => (
+                  <div class="grid grid-cols-[8.5rem_1fr] gap-4 py-3">
+                    <dt class="text-sm text-slate-500">{d.k}</dt>
+                    <dd class="text-[0.95rem] font-medium text-ink">
+                      {d.href ? (
+                        <a href={d.href} class="underline decoration-primary/40 underline-offset-4 hover:text-medical-blue break-all" target={d.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                          {d.v}
+                        </a>
+                      ) : (
+                        d.v
+                      )}
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+            {
+              sede && (
+                <a href={mapa} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-medical-blue hover:text-primary">
+                  <span class="material-symbols-rounded text-[18px]">map</span>
+                  Abrir en Google Maps
+                </a>
+              )
+            }
+          </aside>
         </div>
       </div>
     </section>
 
-    {
-      sede && (
-        <section class="bg-white">
-          <div class="mx-auto max-w-7xl px-5 sm:px-8 py-12">
-            <div class="grid gap-5 md:grid-cols-3 rounded-[2rem] bg-ink p-6 sm:p-8 text-white">
-              <div class="flex gap-3">
-                <span class="material-symbols-rounded text-lime">location_on</span>
-                <div>
-                  <p class="text-xs uppercase tracking-[0.2em] text-white/50">Dirección</p>
-                  <a class="mt-1 block hover:text-lime" href={mapa} target="_blank" rel="noopener noreferrer">
-                    {sede.direccion} {sede.ciudad}, {sede.pais}
+    <div class="mx-auto max-w-6xl px-4 sm:px-8 py-14 lg:py-20 grid lg:grid-cols-12 gap-10 lg:gap-14">
+      <nav aria-label="En esta página" class="min-w-0 lg:col-span-3">
+        <details class="lg:hidden rounded-2xl bg-medical-gray px-5 py-4">
+          <summary class="cursor-pointer font-semibold text-ink">En esta página</summary>
+          <ol class="mt-3 space-y-2 text-[0.95rem]">
+            {indice.map((i) => <li><a href={`#${i.id}`} class="text-slate-600 hover:text-medical-blue">{i.label}</a></li>)}
+          </ol>
+        </details>
+        <div class="hidden lg:block sticky top-28">
+          <p class="text-sm font-semibold text-ink">En esta página</p>
+          <ol class="toc mt-4 border-l border-slate-200 text-sm">
+            {
+              indice.map((i) => (
+                <li>
+                  <a href={`#${i.id}`} data-toc={i.id} class="-ml-px block border-l border-transparent py-1.5 pl-4 leading-snug text-slate-500 transition-colors hover:text-ink">
+                    {i.label}
                   </a>
-                </div>
-              </div>
-              <div class="flex gap-3">
-                <span class="material-symbols-rounded text-lime">call</span>
-                <div>
-                  <p class="text-xs uppercase tracking-[0.2em] text-white/50">Teléfono y WhatsApp</p>
-                  <a class="mt-1 block hover:text-lime" href={`tel:${tel}`}>+57 310 3114580</a>
-                </div>
-              </div>
-              <div class="flex gap-3">
-                <span class="material-symbols-rounded text-lime">mail</span>
-                <div>
-                  <p class="text-xs uppercase tracking-[0.2em] text-white/50">Correo</p>
-                  <a class="mt-1 block break-all hover:text-lime" href={`mailto:${sede.email}`}>{sede.email}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )
-    }
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </nav>
 
-    <section class="bg-white py-16 sm:py-24">
-      <div class="mx-auto max-w-3xl px-5 sm:px-8 space-y-14">
+      <article class="min-w-0 lg:col-span-8 lg:col-start-5 max-w-[68ch]">
         {
-          pagina.secciones.map((s) => (
-            <div>
-              <h2 class="font-display text-2xl sm:text-3xl font-bold text-ink leading-tight">{s.h2}</h2>
-              {!s.lista && s.p?.map((t) => (
-                <p class="mt-4 text-lg leading-relaxed text-slate-600">{t}</p>
-              ))}
-              {s.lista && (
-                <ul class="mt-6 space-y-3">
-                  {s.lista.map((t) => (
-                    <li class="flex gap-3 text-lg text-slate-600">
-                      <span class="material-symbols-rounded text-primary mt-0.5">check_circle</span>
-                      <span>{t}</span>
-                    </li>
-                  ))}
-                </ul>
+          secciones.map((s, n) => (
+            <>
+              <section id={s.id} class="scroll-mt-28 [&:not(:first-child)]:mt-16">
+                <h2 class="font-display text-[1.6rem] sm:text-3xl font-bold leading-tight tracking-[-0.02em] text-ink text-balance">{s.h2}</h2>
+                {s.p?.map((t) => <p class="prosa mt-4">{t}</p>)}
+                {s.lista && (
+                  <ul class="mt-5 space-y-3">
+                    {s.lista.map((t) => (
+                      <li class="prosa flex gap-3">
+                        <span class="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+                        <span>{t}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {s.pasos && (
+                  <ol class="regla mt-6">
+                    {s.pasos.map((t, k) => (
+                      <li class="grid grid-cols-[2.25rem_1fr] gap-3 py-4">
+                        <span class="font-display text-lg font-bold tabular-nums text-medical-blue">{k + 1}</span>
+                        <span class="prosa">{t}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                {s.tabla && (
+                  <div class="mt-6 overflow-x-auto">
+                    <table class="tabla w-full text-left text-[0.8125rem] leading-snug sm:text-[0.95rem] sm:leading-normal [&_td]:pr-2 [&_th]:pr-2 sm:[&_td]:pr-4 sm:[&_th]:pr-4">
+                      <thead>
+                        <tr>
+                          {s.tabla.cols.map((c, k) => (
+                            <th scope="col" class:list={["py-3 font-semibold text-ink", k === (s.tabla!.destacar ?? 1) && "text-medical-blue"]}>
+                              {c || <span class="sr-only">Aspecto</span>}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {s.tabla.filas.map((f) => (
+                          <tr>
+                            {f.map((c, k) =>
+                              k === 0 ? (
+                                <th scope="row" class="py-3 align-top font-medium text-slate-500">{c}</th>
+                              ) : (
+                                <td class:list={["py-3 align-top", k === (s.tabla!.destacar ?? 1) ? "font-medium text-ink" : "text-slate-600"]}>{c}</td>
+                              )
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+                {s.despues?.map((t) => <p class="prosa mt-4">{t}</p>)}
+                {s.enlace && (
+                  <a href={s.enlace.href} class="mt-5 inline-flex items-center gap-1 font-semibold text-medical-blue underline decoration-primary/40 underline-offset-4 hover:text-primary">
+                    {s.enlace.label}
+                    <span class="material-symbols-rounded text-[18px]" aria-hidden="true">arrow_forward</span>
+                  </a>
+                )}
+              </section>
+              {n === 1 && (
+                <aside class="mt-14 rounded-2xl bg-medical-gray p-6 sm:p-7" aria-label="Contacto">
+                  <p class="font-display text-xl font-bold text-ink">{ctaTitulo}</p>
+                  <p class="prosa mt-2">{ctaTexto}</p>
+                  <a href={wa} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 font-semibold text-white transition-colors hover:bg-medical-blue">
+                    <span class="material-symbols-rounded text-[20px]">chat</span>
+                    Escribir por WhatsApp
+                  </a>
+                </aside>
               )}
-              {s.lista && s.p?.map((t) => <p class="mt-4 text-lg leading-relaxed text-slate-600">{t}</p>)}
-            </div>
+            </>
           ))
         }
-      </div>
-    </section>
 
-    <section id="faq" class="bg-medical-gray py-16 sm:py-24">
-      <div class="mx-auto max-w-3xl px-5 sm:px-8">
-        <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink leading-tight">Preguntas frecuentes</h2>
-        <div class="mt-8 space-y-3">
-          {
-            pagina.faqs.map((f, i) => (
-              <details class="faq group rounded-3xl bg-white border border-slate-100 shadow-sm open:shadow-lg transition-shadow" open={i === 0}>
-                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:p-6 font-display font-semibold text-ink sm:text-lg">
-                  {f.q}
-                  <span class="shrink-0 grid place-items-center w-10 h-10 rounded-full bg-medical-gray text-primary group-open:bg-primary group-open:text-white group-open:rotate-45 transition-all">
-                    <span class="material-symbols-rounded">add</span>
-                  </span>
-                </summary>
-                <p class="px-5 sm:px-6 pb-6 -mt-1 leading-relaxed text-slate-600">{f.a}</p>
-              </details>
-            ))
-          }
+        <section id="faq" class="scroll-mt-28 mt-16">
+          <h2 class="font-display text-[1.6rem] sm:text-3xl font-bold leading-tight tracking-[-0.02em] text-ink text-balance">{faqH2}</h2>
+          <div class="regla mt-6">
+            {
+              pagina.faqs.map((f, i) => (
+                <details class="faq group" open={i === 0}>
+                  <summary class="flex cursor-pointer list-none items-start justify-between gap-6 py-5 font-semibold text-ink">
+                    <span class="text-[1.05rem] leading-snug">{f.q}</span>
+                    <span class="material-symbols-rounded mt-0.5 shrink-0 text-medical-blue transition-transform duration-300 group-open:rotate-45" aria-hidden="true">add</span>
+                  </summary>
+                  <p class="prosa -mt-1 pb-6">{f.a}</p>
+                </details>
+              ))
+            }
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <section class="bg-ink text-white">
+      <div class="mx-auto max-w-6xl px-4 sm:px-8 py-16 lg:py-20 grid lg:grid-cols-12 gap-8 items-end">
+        <div class="lg:col-span-7">
+          <h2 class="font-display text-3xl sm:text-4xl font-bold leading-tight tracking-[-0.02em] text-balance">{ctaTitulo}</h2>
+          <p class="mt-4 max-w-[58ch] text-lg leading-relaxed text-white/75">
+            Te respondemos por WhatsApp para elegir fecha. Si vives en otra ciudad o en el exterior, empezamos con una valoración
+            online por videollamada.
+          </p>
+        </div>
+        <div class="lg:col-span-5 flex flex-col sm:flex-row lg:justify-end gap-3">
+          <a href={wa} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full bg-lime px-7 py-3.5 font-bold text-ink transition-colors hover:bg-white">
+            <span class="material-symbols-rounded text-[22px]">chat</span>
+            Agendar por WhatsApp
+          </a>
+          <a href={`tel:${tel}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-6 py-3.5 font-semibold text-white transition-colors hover:border-lime hover:text-lime">
+            Llamar
+          </a>
         </div>
       </div>
     </section>
 
-    <Appointment />
-
-    <section class="bg-medical-gray pb-20">
-      <div class="mx-auto max-w-7xl px-5 sm:px-8">
-        <h2 class="font-display text-2xl font-bold text-ink">También te puede interesar</h2>
-        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <section class="bg-white">
+      <div class="mx-auto max-w-6xl px-4 sm:px-8 py-14 lg:py-16">
+        <h2 class="font-display text-2xl font-bold text-ink">Más sobre implantes en Oral ProFace</h2>
+        <ul class="regla mt-6 grid sm:grid-cols-2 sm:gap-x-12">
           {
             relacionadas.map((p) => (
-              <a
-                href={url(p.slug)}
-                class="group flex items-center justify-between gap-3 rounded-3xl bg-white p-6 border border-slate-100 hover:border-primary/30 hover:shadow-xl transition-all"
-              >
-                <span class="font-display font-semibold text-ink">{p.nav}</span>
-                <span class="material-symbols-rounded text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </a>
+              <li class="border-b border-slate-200">
+                <a href={url(p.slug)} class="group flex items-start justify-between gap-4 py-5">
+                  <span>
+                    <span class="block font-display font-semibold text-ink group-hover:text-medical-blue transition-colors">{p.nav}</span>
+                    <span class="mt-1 block text-sm text-slate-500">{p.resumen}</span>
+                  </span>
+                  <span class="material-symbols-rounded mt-0.5 text-medical-blue transition-transform group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+                </a>
+              </li>
             ))
           }
-        </div>
+        </ul>
       </div>
     </section>
   </main>
@@ -234,7 +351,55 @@ const principal = sede
 </Layout>
 
 <style>
+  .prosa {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: rgb(51 65 85);
+  }
+  /* Signature rule: heavy ink line on top, hairlines between rows (patient-leaflet style) */
+  .ficha,
+  .regla {
+    border-top: 2px solid var(--color-ink);
+  }
+  .ficha > div + div,
+  .regla > li + li,
+  .regla > details + details {
+    border-top: 1px solid rgb(226 232 240);
+  }
+  .regla > li.border-b {
+    border-top: 0;
+  }
+  .tabla thead tr {
+    border-top: 2px solid var(--color-ink);
+    border-bottom: 1px solid var(--color-ink);
+  }
+  .tabla tbody tr + tr {
+    border-top: 1px solid rgb(226 232 240);
+  }
+  .tabla tbody tr:last-child {
+    border-bottom: 1px solid rgb(226 232 240);
+  }
   .faq summary::-webkit-details-marker {
     display: none;
   }
+  .toc a.is-active {
+    color: var(--color-ink);
+    font-weight: 600;
+    border-left-color: var(--color-lime);
+  }
 </style>
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc]"));
+  const targets = links.map((a) => document.getElementById(a.dataset.toc!)).filter(Boolean) as HTMLElement[];
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((a) => a.classList.toggle("is-active", a.dataset.toc === e.target.id));
+      });
+    },
+    { rootMargin: "-30% 0px -60% 0px" }
+  );
+  targets.forEach((t) => io.observe(t));
+</script>
