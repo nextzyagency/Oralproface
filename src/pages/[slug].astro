@@ -1,0 +1,240 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Appointment from "../components/Appointment.astro";
+import Footer from "../components/Footer.astro";
+import { paginas, tratamientos, sedesPaginas, url, type Pagina } from "../data/paginas";
+import { sedes } from "../data/site";
+
+export function getStaticPaths() {
+  return paginas.map((pagina) => ({ params: { slug: pagina.slug }, props: { pagina } }));
+}
+
+const { pagina } = Astro.props as { pagina: Pagina };
+const site = "https://oralproface.online";
+const pageUrl = `${site}${url(pagina.slug)}`;
+const sede = pagina.sede !== undefined ? sedes[pagina.sede] : undefined;
+const tel = "+573103114580";
+const wa = `https://wa.me/573103114580?text=${encodeURIComponent(
+  sede
+    ? `Hola, deseo agendar una valoración de implantes en ${sede.ciudad}.`
+    : `Hola, deseo información sobre ${pagina.nav.toLowerCase()}.`
+)}`;
+const mapa = sede
+  ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sede.direccion + " " + sede.ciudad)}`
+  : "";
+const relacionadas = (pagina.tipo === "sede" ? tratamientos : [...tratamientos, ...sedesPaginas]).filter(
+  (p) => p.slug !== pagina.slug
+);
+
+const breadcrumb = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: pagina.nav, item: pageUrl },
+  ],
+};
+
+const regiones: Record<string, string> = { Barranquilla: "Atlántico", Bogotá: "Bogotá D.C." };
+const principal = sede
+  ? {
+      "@type": "Dentist",
+      "@id": `${pageUrl}#sede`,
+      name: `Oral ProFace ${sede.ciudad}`,
+      url: pageUrl,
+      image: `${site}${pagina.imagen}`,
+      telephone: tel,
+      email: sede.email,
+      parentOrganization: { "@id": `${site}/#org` },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: sede.direccion.replace(/\.$/, ""),
+        addressLocality: sede.ciudad,
+        addressRegion: regiones[sede.ciudad],
+        addressCountry: "CO",
+      },
+      hasMap: mapa,
+    }
+  : {
+      "@type": "MedicalProcedure",
+      "@id": `${pageUrl}#procedimiento`,
+      name: pagina.procedimiento,
+      description: pagina.description,
+      url: pageUrl,
+      bodyLocation: "Maxilar y mandíbula",
+      howPerformed: pagina.intro,
+    };
+---
+
+<Layout
+  title={pagina.title}
+  description={pagina.description}
+  image={pagina.imagen}
+  faqs={pagina.faqs}
+  extraSchema={[breadcrumb, principal]}
+>
+  <Header />
+  <main>
+    <section class="relative overflow-clip bg-gradient-to-b from-[#eef6fb] via-white to-background-light">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute -top-40 -right-40 w-[38rem] h-[38rem] rounded-full bg-primary/15 blur-3xl"></div>
+        <div class="absolute top-1/2 -left-40 w-[28rem] h-[28rem] rounded-full bg-lime/15 blur-3xl"></div>
+      </div>
+      <div class="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24">
+        <nav aria-label="Ruta" class="text-sm text-slate-500">
+          <ol class="flex flex-wrap items-center gap-1">
+            <li><a href="/" class="hover:text-primary">Inicio</a></li>
+            <li aria-hidden="true" class="material-symbols-rounded text-[16px]">chevron_right</li>
+            <li aria-current="page" class="text-medical-blue font-medium">{pagina.nav}</li>
+          </ol>
+        </nav>
+        <div class="mt-8 grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <div class="lg:col-span-7">
+            <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+              {pagina.eyebrow}
+            </span>
+            <h1 class="mt-5 font-display text-4xl sm:text-5xl xl:text-6xl font-bold leading-[1.08] tracking-tight text-ink">
+              {pagina.h1}
+            </h1>
+            <p class="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600">{pagina.intro}</p>
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group inline-flex items-center justify-center gap-3 rounded-full bg-lime px-7 py-4 font-bold text-ink shadow-xl shadow-lime/30 hover:-translate-y-0.5 transition-all"
+              >
+                <span class="material-symbols-rounded">calendar_month</span>
+                Agendar valoración
+                <span class="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+              <a
+                href="#cita"
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-4 font-semibold text-ink hover:border-primary hover:text-primary transition-colors"
+              >
+                Valoración online o presencial
+              </a>
+            </div>
+          </div>
+          <div class="lg:col-span-5">
+            <img
+              src={pagina.imagen}
+              alt={pagina.imagenAlt}
+              class="w-full aspect-[4/3] rounded-[2rem] object-cover shadow-2xl ring-8 ring-white"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {
+      sede && (
+        <section class="bg-white">
+          <div class="mx-auto max-w-7xl px-5 sm:px-8 py-12">
+            <div class="grid gap-5 md:grid-cols-3 rounded-[2rem] bg-ink p-6 sm:p-8 text-white">
+              <div class="flex gap-3">
+                <span class="material-symbols-rounded text-lime">location_on</span>
+                <div>
+                  <p class="text-xs uppercase tracking-[0.2em] text-white/50">Dirección</p>
+                  <a class="mt-1 block hover:text-lime" href={mapa} target="_blank" rel="noopener noreferrer">
+                    {sede.direccion} {sede.ciudad}, {sede.pais}
+                  </a>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="material-symbols-rounded text-lime">call</span>
+                <div>
+                  <p class="text-xs uppercase tracking-[0.2em] text-white/50">Teléfono y WhatsApp</p>
+                  <a class="mt-1 block hover:text-lime" href={`tel:${tel}`}>+57 310 3114580</a>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="material-symbols-rounded text-lime">mail</span>
+                <div>
+                  <p class="text-xs uppercase tracking-[0.2em] text-white/50">Correo</p>
+                  <a class="mt-1 block break-all hover:text-lime" href={`mailto:${sede.email}`}>{sede.email}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="bg-white py-16 sm:py-24">
+      <div class="mx-auto max-w-3xl px-5 sm:px-8 space-y-14">
+        {
+          pagina.secciones.map((s) => (
+            <div>
+              <h2 class="font-display text-2xl sm:text-3xl font-bold text-ink leading-tight">{s.h2}</h2>
+              {!s.lista && s.p?.map((t) => (
+                <p class="mt-4 text-lg leading-relaxed text-slate-600">{t}</p>
+              ))}
+              {s.lista && (
+                <ul class="mt-6 space-y-3">
+                  {s.lista.map((t) => (
+                    <li class="flex gap-3 text-lg text-slate-600">
+                      <span class="material-symbols-rounded text-primary mt-0.5">check_circle</span>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {s.lista && s.p?.map((t) => <p class="mt-4 text-lg leading-relaxed text-slate-600">{t}</p>)}
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="faq" class="bg-medical-gray py-16 sm:py-24">
+      <div class="mx-auto max-w-3xl px-5 sm:px-8">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink leading-tight">Preguntas frecuentes</h2>
+        <div class="mt-8 space-y-3">
+          {
+            pagina.faqs.map((f, i) => (
+              <details class="faq group rounded-3xl bg-white border border-slate-100 shadow-sm open:shadow-lg transition-shadow" open={i === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:p-6 font-display font-semibold text-ink sm:text-lg">
+                  {f.q}
+                  <span class="shrink-0 grid place-items-center w-10 h-10 rounded-full bg-medical-gray text-primary group-open:bg-primary group-open:text-white group-open:rotate-45 transition-all">
+                    <span class="material-symbols-rounded">add</span>
+                  </span>
+                </summary>
+                <p class="px-5 sm:px-6 pb-6 -mt-1 leading-relaxed text-slate-600">{f.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Appointment />
+
+    <section class="bg-medical-gray pb-20">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <h2 class="font-display text-2xl font-bold text-ink">También te puede interesar</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            relacionadas.map((p) => (
+              <a
+                href={url(p.slug)}
+                class="group flex items-center justify-between gap-3 rounded-3xl bg-white p-6 border border-slate-100 hover:border-primary/30 hover:shadow-xl transition-all"
+              >
+                <span class="font-display font-semibold text-ink">{p.nav}</span>
+                <span class="material-symbols-rounded text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

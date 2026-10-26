@@ -1,6 +1,9 @@
 ---
 import SideDecor from "./SideDecor.astro";
 import { sedes } from "../data/site";
+import { sedesPaginas, url } from "../data/paginas";
+
+const paginaSede = (i: number) => sedesPaginas.find((p) => p.sede === i);
 
 const inputCls =
   "peer w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 pt-6 pb-2 text-white placeholder-transparent outline-none transition-all focus:border-lime focus:bg-white/10";
@@ -87,6 +90,15 @@ const labelCls =
                   <a class="hover:text-white break-all" href={`mailto:${s.email}`}>{s.email}</a>
                 </li>
               </ul>
+              {paginaSede(i) && (
+                <a
+                  href={url(paginaSede(i)!.slug)}
+                  class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-lime hover:text-white transition-colors"
+                >
+                  Implantes dentales en {s.ciudad}
+                  <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                </a>
+              )}
             </div>
           ))
         }

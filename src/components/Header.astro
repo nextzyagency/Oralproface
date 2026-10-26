@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import logo from "../assets/logos/oralproface_fondo_transparente.png";
 
+const base = Astro.url.pathname === "/" ? "" : "/";
 const links = [
   { href: "#inicio", label: "Inicio" },
   { href: "#nosotros", label: "Nosotros" },
@@ -9,7 +10,7 @@ const links = [
   { href: "#servicios", label: "Servicios" },
   { href: "#testimonios", label: "Resultados" },
   { href: "#faq", label: "Preguntas" },
-];
+].map((l) => ({ ...l, href: base + l.href }));
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-50 px-3 sm:px-5 pt-3 transition-all duration-500">
@@ -17,7 +18,7 @@ const links = [
     id="header-bar"
     class="mx-auto max-w-7xl flex items-center justify-between gap-4 rounded-full border border-white/60 bg-white/70 backdrop-blur-xl px-3 sm:px-4 py-2 shadow-[0_8px_30px_-12px_rgba(15,76,129,0.25)] transition-all duration-500"
   >
-    <a href="#inicio" class="flex items-center shrink-0" aria-label="Oral ProFace - Inicio">
+    <a href={base ? "/" : "#inicio"} class="flex items-center shrink-0" aria-label="Oral ProFace - Inicio">
       <span class="logo-crop block h-10 sm:h-11">
         <Image src={logo} alt="Oral ProFace" width={360} loading="eager" />
       </span>
@@ -167,13 +168,13 @@ const links = [
   // Active section highlight
   const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-nav]"));
   const sections = navLinks
-    .map((a) => document.querySelector<HTMLElement>(a.getAttribute("href")!))
+    .map((a) => (a.pathname === location.pathname && a.hash ? document.querySelector<HTMLElement>(a.hash) : null))
     .filter(Boolean) as HTMLElement[];
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
-        navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${e.target.id}`));
+        navLinks.forEach((a) => a.classList.toggle("is-active", a.hash === `#${e.target.id}`));
       });
     },
     { rootMargin: "-45% 0px -50% 0px" }

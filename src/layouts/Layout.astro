@@ -1,14 +1,36 @@
 ---
 import "../styles/global.css";
 import Loader from "../components/Loader.astro";
-import { sedes, faqs } from "../data/site";
+import { sedes, faqs as faqsHome } from "../data/site";
+import { paginas, url } from "../data/paginas";
+
+type Faq = { q: string; a: string };
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  faqs?: Faq[];
+  extraSchema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
 
 const site = "https://oralproface.online";
-const title = "Implantes dentales en Colombia en 72 horas | Oral ProFace";
-const description =
+const homeDescription =
   "Implantes dentales en Barranquilla y Bogotá con carga inmediata: dientes fijos en unas 72 horas, incluso con poco hueso y sin injertos. Agenda tu valoración.";
-const image = `${site}/imagenes/hero/imagen1.jpeg`;
+const {
+  title = "Implantes dentales en Colombia en 72 horas | Oral ProFace",
+  description = homeDescription,
+  image: imagePath = "/imagenes/hero/imagen1.jpeg",
+  faqs = faqsHome,
+  extraSchema = [],
+  noindex = false,
+} = Astro.props;
+const image = new URL(imagePath, site).href;
 const canonical = new URL(Astro.url.pathname, site).href;
+const sedeUrl = (ciudad: string) => {
+  const p = paginas.find((x) => x.tipo === "sede" && sedes[x.sede!]?.ciudad === ciudad);
+  return p ? `${site}${url(p.slug)}` : `${site}/#contacto`;
+};
 
 const regiones = { Barranquilla: "Atlántico", Bogotá: "Bogotá D.C.", Maracaibo: "Zulia" };
 const paises = { Colombia: "CO", Venezuela: "VE" };
@@ -32,7 +54,7 @@ const schema = {
       url: site,
       logo: `${site}/imagenes/icon.jpg`,
       image,
-      description,
+      description: homeDescription,
       telephone: "+573103114580",
       email: "oralproimplantes@gmail.com",
       medicalSpecialty: "Dentistry",
@@ -58,7 +80,7 @@ const schema = {
         name: `Oral ProFace ${s.ciudad}`,
         telephone: `+${s.tel.replace(/\s/g, "")}`,
         email: s.email,
-        url: `${site}/#contacto`,
+        url: sedeUrl(s.ciudad),
         image,
         address: direccion(s),
       })),
@@ -87,15 +109,20 @@ const schema = {
       inLanguage: "es",
       publisher: { "@id": `${site}/#org` },
     },
-    {
-      "@type": "FAQPage",
-      "@id": `${site}/#faq`,
-      mainEntity: faqs.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    },
+    ...(faqs.length
+      ? [
+          {
+            "@type": "FAQPage",
+            "@id": `${canonical}#faq`,
+            mainEntity: faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+        ]
+      : []),
+    ...extraSchema,
   ],
 };
 ---
@@ -107,8 +134,8 @@ const schema = {
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="sitemap" href="/sitemap.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_CO" />
@@ -121,7 +148,7 @@ const schema = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
     <meta name="theme-color" content="#0F4C81" />
     <link href="/imagenes/icon.jpg" rel="icon" type="image/jpeg" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />

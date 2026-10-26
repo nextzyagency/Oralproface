@@ -1,5 +1,6 @@
 ---
 import SideDecor from "./SideDecor.astro";
+import { url } from "../data/paginas";
 
 const services = [
   {
@@ -7,6 +8,7 @@ const services = [
     title: "Implantes estratégicos basales",
     text: "Implantes dentales que se anclan en el hueso cortical profundo, la capa más densa del maxilar y la mandíbula. Están indicados en atrofia ósea severa y en muchos casos evitan los injertos.",
     tags: ["Atrofia severa", "Sin injertos"],
+    href: url("implantes-basales"),
     big: true,
   },
   {
@@ -14,12 +16,14 @@ const services = [
     title: "Carga inmediata",
     text: "Dientes fijos en unas 72 horas después de la cirugía, en los casos indicados. Vuelves a masticar y a sonreír sin esperar meses de cicatrización.",
     tags: ["72 horas"],
+    href: url("carga-inmediata"),
   },
   {
     icon: "medical_services",
     title: "Rehabilitación oral completa",
     text: "Dentadura fija sobre implantes para quien perdió todos o casi todos los dientes. Restauramos la arcada completa combinando estética y función.",
     tags: ["Arcada completa"],
+    href: url("rehabilitacion-oral-completa"),
   },
   {
     icon: "3d_rotation",
@@ -28,7 +32,7 @@ const services = [
     tags: ["Escaneo 3D", "Previsualización"],
     wide: true,
   },
-];
+] as { icon: string; title: string; text: string; tags: string[]; href?: string; big?: boolean; wide?: boolean }[];
 ---
 
 <section id="servicios" class="relative py-24 sm:py-32 bg-white overflow-clip">
@@ -108,13 +112,13 @@ const services = [
                 </div>
               )}
               <a
-                href="#cita"
+                href={s.href ?? "#cita"}
                 class:list={[
                   "mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold",
                   s.big ? "text-lime" : "text-primary",
                 ]}
               >
-                Consultar <span class="material-symbols-rounded text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                {s.href ? `Ver ${s.title.toLowerCase()}` : "Consultar"} <span class="material-symbols-rounded text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </a>
             </div>
           </article>
